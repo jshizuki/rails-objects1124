@@ -1,1 +1,10 @@
-Index
+<div class="container">
+  <div class="fs-3">INVOICE</div>
+  <% @invoices.each do |invoice| %>
+    <ul class="list-unstyled">
+      <li>Order date: <%= invoice.order_date %></li>
+      <li>Billed to: <%= invoice.billed_to %></li>
+      <li></li>
+    </ul>
+  <% end %>
+</div>

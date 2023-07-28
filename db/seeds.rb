@@ -6,30 +6,31 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-# def random_date(start_date, end_date)
-#   rand(start_date..end_date)
-# end
+# INVOICE instances
 
-# start_date = Date.new(2023, 1, 1)
-# end_date = Date.today
+def random_date(start_date, end_date)
+  rand(start_date..end_date)
+end
 
-# clients = %w[Andrew Anne Connor Dave Joyce Jun Rashon Taylor]
+start_date = Date.new(2023, 1, 1)
+end_date = Date.today
 
-# # Invoice instances
-# puts 'Creating invoices...'
+clients = %w[Andrew Anne Connor Dave Joyce Jun Rashon Taylor]
 
-# 5.times do
-#   random_date = random_date(start_date, end_date)
-#   invoice = Invoice.create(
-#     order_date: random_date,
-#     billed_to: clients.sample
-#   )
-#   puts "Invoice #{invoice.id} has been created."
-# end
+puts 'Creating invoices...'
 
-# puts "Created #{Invoice.count} invoices successfully."
+5.times do
+  random_date = random_date(start_date, end_date)
+  invoice = Invoice.create(
+    order_date: random_date,
+    billed_to: clients.sample
+  )
+  puts "Invoice #{invoice.id} has been created."
+end
 
-# Product instances
+puts "Created #{Invoice.count} invoices successfully."
+
+# PRODUCT instances
 
 puts 'Creating products...'
 
@@ -55,7 +56,6 @@ products.each do |product|
   product = Product.create(
     sku: product[:sku],
     name: product[:name],
-    stock: product[:stock],
     unit_price: product[:unit_price]
   )
   puts "Product #{product.id} has been created."
