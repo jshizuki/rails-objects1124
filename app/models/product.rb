@@ -1,7 +1,5 @@
 class Product < ApplicationRecord
-  has_many :invoice_items
-  has_many :invoices, through: :invoice_items
+  belongs_to :invoice
 
-  validates :sku, presence: true
-  validates :unit_price, presence: true
+  validates_presence_of :sku, :unit_price
 end

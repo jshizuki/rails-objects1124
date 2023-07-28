@@ -1,7 +1,5 @@
 class Invoice < ApplicationRecord
-  has_many :invoice_items
-  has_many :products, through: :invoice_items
+  has_many :products
 
-  validates :order_date, presence: true
-  validates :billed_to, presence: true
+  validates_presence_of :order_date, :billed_to
 end
