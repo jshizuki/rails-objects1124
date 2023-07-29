@@ -6,8 +6,10 @@ class InvoicesController < ApplicationController
   # def create
   # end
 
-  # def new
-  # end
+  # Creating a new invoice whenever there's a transaction
+  def new
+    @invoice = Invoice.new
+  end
 
   # def edit
   # end
