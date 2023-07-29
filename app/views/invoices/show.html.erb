@@ -1,0 +1,7 @@
+<div class="container">
+  <%= image_tag "logo.png", alt: "Logo", width: 300, class: "mx-auto d-block" %>
+  <div class="fs-2">INVOICE</div>
+  <br>
+  <div class="fs-5">ORDER DATE: <%= @invoice.order_date %></div>
+  <div class="fs-5">BILLED TO: <%= @invoice.billed_to %></div>
+</div>
