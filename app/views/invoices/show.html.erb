@@ -4,4 +4,9 @@
   <br>
   <div class="fs-5">ORDER DATE: <%= @invoice.order_date %></div>
   <div class="fs-5">BILLED TO: <%= @invoice.billed_to %></div>
+  <div class="fs-5">ITEM NO.
+    <% @invoice.products.each do |product| %>
+      <%= product.sku %>
+    <% end %>
+  </div>
 </div>
