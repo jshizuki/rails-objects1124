@@ -1,13 +1,14 @@
 <div class="container">
   <%= image_tag "logo.png", alt: "Logo", width: 300, class: "mx-auto d-block" %>
   <div class="fs-1">INVOICE</div>
-  <br>
-  <%= simple_form_for [@invoice] do |each| %>
-    <%= each.input :order_date %>
-    <%= each.input :billed_to %>
-    <%= each.simple_fields_for :products do |p| %>
-      <%= p.input :sku, collection: Product.pluck(:sku) %>
+  <div class="mb-5">
+    <%= simple_form_for [@invoice] do |each| %>
+      <%= each.input :order_date %>
+      <%= each.input :billed_to %>
+      <%= each.simple_fields_for :products do |p| %>
+        <%= p.input :sku, collection: Product.pluck(:sku) %>
+      <% end %>
+      <%= each.submit %>
     <% end %>
-    <%= each.submit %>
-  <% end %>
+  </div>
 </div>

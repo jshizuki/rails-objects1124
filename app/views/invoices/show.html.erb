@@ -1,12 +1,28 @@
 <div class="container">
   <%= image_tag "logo.png", alt: "Logo", width: 300, class: "mx-auto d-block" %>
   <div class="fs-2">INVOICE</div>
-  <br>
   <div class="fs-5">ORDER DATE: <%= @invoice.order_date %></div>
   <div class="fs-5">BILLED TO: <%= @invoice.billed_to %></div>
   <div class="fs-5">ITEM NO.
     <% @invoice.products.each do |product| %>
       <%= product.sku %>
     <% end %>
+  </div>
+  <p class="m-0">Sub-total</p>
+  <p class="m-0">Shipping Fee</p>
+  <p class="m-0">[Package Discount (20%)]</p>
+  <hr>
+  <div class="d-flex justify-content-between">
+    <div class="fs-5">TOTAL</div>
+    <div class="fs-5">$HK</div>
+  </div>
+  <div class="fs-6 my-5">
+    Thank you for shopping with us.  We hope our artisanal objects will shed some light and warmth in your daily life.
+  </div>
+  <hr>
+  <div class="d-flex justify-content-between">
+    <div><i class="fa-solid fa-phone"></i>  +852 95117552</div>
+    <div><i class="fa-brands fa-instagram"></i>  theobjects_1124</div>
+    <div><i class="fa-regular fa-envelope"></i>  theobjectsatelier@gmail.com</div>
   </div>
 </div>

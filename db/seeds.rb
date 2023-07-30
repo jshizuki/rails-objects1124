@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+puts 'Cleaning database...'
+Product.destroy_all
+Invoice.destroy_all
+
 # INVOICE instances
 
 # def random_date(start_date, end_date)
@@ -28,7 +32,7 @@
 #   puts "Invoice #{invoice.id} has been created."
 # end
 
-# puts "Created #{Invoice.count} invoices successfully."
+# puts "Successfully created #{Invoice.count} invoices."
 
 # PRODUCT instances
 
@@ -61,4 +65,4 @@ products.each do |product|
   puts "Product #{item.id} has been created."
 end
 
-puts "Created #{Product.count} products successfully."
+puts "Successfully created #{Product.count} products."
