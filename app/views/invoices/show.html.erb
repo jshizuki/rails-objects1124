@@ -3,14 +3,9 @@
   <div class="fs-2">INVOICE</div>
   <div class="fs-5">ORDER DATE: <%= @invoice.order_date %></div>
   <div class="fs-5">BILLED TO: <%= @invoice.billed_to %></div>
-  <div class="fs-5">ITEM NO.
-    <% @invoice.products.each do |product| %>
-      <%= product.sku %>
-    <% end %>
-  </div>
-  <table class="table table-striped table-borderless">
+  <table class="table table-striped table-borderless my-5">
     <thead>
-      <tr>
+      <tr class="text-center">
         <th scope="col">ITEM NO.</th>
         <th scope="col">DESCRIPTION</th>
         <th scope="col">QTY</th>
@@ -19,41 +14,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th scope="row">4</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th scope="row">5</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+      <% @invoice.products.each do |product| %>
+        <tr class="text-center">
+          <td><%= product.sku %></td>
+          <td><%= product.name %></td>
+          <td>1</td>
+          <td><%= product.unit_price %></td>
+          <td><%= product.unit_price %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
   <p class="m-0">Sub-total</p>
