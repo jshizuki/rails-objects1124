@@ -31,8 +31,18 @@
     <p class="m-0">Sub-total</p>
     <p class="m-0"><%= @sub_total %></p>
   </div>
-  <p class="m-0">Shipping Fee</p>
-  <p class="m-0">[Discount (20%)]</p>
+  <% unless @invoice.shipping_fee.nil? || @invoice.shipping_fee == 0 %>
+    <div class="d-flex justify-content-between">
+      <p class="m-0">Shipping Fee</p>
+      <p class="m-0"><%= @invoice.shipping_fee %></p>
+    </div>
+  <% end %>
+  <% unless @invoice.discount.nil? || @invoice.discount == 0 %>
+    <div class="d-flex justify-content-between">
+      <p class="m-0"><%= "[Discount #{@invoice.discount}%]" %></p>
+      <p class="m-0"><%= @invoice.discount %></p>
+    </div>
+  <% end %>
   <hr>
   <div class="d-flex justify-content-between">
     <div class="fs-5">TOTAL:</div>

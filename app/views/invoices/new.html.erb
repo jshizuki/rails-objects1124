@@ -1,10 +1,12 @@
 <div class="container">
   <div class="fs-1">INVOICE</div>
-  <div class="mb-5">
+  <div class="my-4">
     <%= simple_form_for @invoice do |each| %>
       <%= each.input :order_date %>
       <%= each.input :billed_to %>
-      <%= each.input :product_ids, collection: Product.all, label_method: :sku, value_method: :id, as: :check_boxes %>
+      <%= each.input :product_ids, collection: Product.where(sold: false).order(sku: :asc), label_method: :sku_and_name, value_method: :id, as: :check_boxes %>
+      <%= each.input :shipping_fee %>
+      <%= each.input :discount %>
       <%= each.submit %>
     <% end %>
   </div>

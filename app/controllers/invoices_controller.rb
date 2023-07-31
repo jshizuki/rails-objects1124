@@ -10,12 +10,12 @@ class InvoicesController < ApplicationController
   def create
     @invoice = Invoice.new(invoice_params)
 
-    @initial_invoice_number = 10_000
-
-    if @invoice.save
-      @invoice.invoice_number = Invoice.maximum(:invoice_number) + 1
-      @invoice.save
+    if @invoice.valid?
+      @invoice.invoice_number = Invoice.all.empty? ? 10_001 : Invoice.maximum(:invoice_number) + 1
+      # Update each product's invoice number
       @invoice.products = Product.where(id: params[:invoice][:product_ids])
+      @invoice.products.each { |product| product.sold = true }
+      @invoice.save
       redirect_to invoice_path(@invoice)
     else
       render :new, status: :unprocessable_entity
@@ -43,6 +43,6 @@ class InvoicesController < ApplicationController
   private
 
   def invoice_params
-    params.require(:invoice).permit(:order_date, :billed_to, products_attributes: [:sku])
+    params.require(:invoice).permit(:order_date, :billed_to, :shipping_fee, :discount, products_attributes: [:sku])
   end
 end

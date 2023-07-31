@@ -3,9 +3,9 @@
   <%= link_to "Create new invoice", new_invoice_path, class: "btn btn-secondary my-3" %>
   <% @invoices.each do |invoice| %>
     <ul class="list-unstyled">
-      <li>Order date: <%= invoice.order_date %></li>
-      <li>Billed to: <%= invoice.billed_to %></li>
-      <li></li>
+      <%= link_to invoice_path(invoice), class:"text-decoration-none link-secondary" do %>
+        <li>Order No.: <%= "INV#{invoice.invoice_number}" %></li>
+      <% end %>
     </ul>
   <% end %>
 </div>

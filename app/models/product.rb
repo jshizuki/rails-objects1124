@@ -1,5 +1,8 @@
 class Product < ApplicationRecord
   belongs_to :invoice, optional: true
 
-  # validates_presence_of :sku, :unit_price
+  # For displaying both sku and name in the form
+  def sku_and_name
+    "#{sku} - #{name}"
+  end
 end
