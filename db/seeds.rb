@@ -53,7 +53,9 @@ products = [
   { sku: 'OBJ012', name: 'The Funky', unit_price: 550 },
   { sku: 'OBJ013', name: 'The Funky', unit_price: 550 },
   { sku: 'OBJ014', name: 'The Funky', unit_price: 550 },
-  { sku: 'OBJ015', name: 'The Funky', unit_price: 550 }
+  { sku: 'OBJ015', name: 'The Funky', unit_price: 550 },
+  { sku: 'OBJ016', name: 'The Chawan', unit_price: 450 },
+  { sku: 'OBJ017', name: 'The Chawan', unit_price: 450 }
 ]
 
 products.each do |product|

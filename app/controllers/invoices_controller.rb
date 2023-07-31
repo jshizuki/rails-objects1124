@@ -10,7 +10,11 @@ class InvoicesController < ApplicationController
   def create
     @invoice = Invoice.new(invoice_params)
 
+    @initial_invoice_number = 10_000
+
     if @invoice.save
+      @invoice.invoice_number = Invoice.maximum(:invoice_number) + 1
+      @invoice.save
       @invoice.products = Product.where(id: params[:invoice][:product_ids])
       redirect_to invoice_path(@invoice)
     else
@@ -23,6 +27,11 @@ class InvoicesController < ApplicationController
 
   def show
     @invoice = Invoice.find(params[:id])
+
+    @sub_total = 0
+    @invoice.products.each do |product|
+      @sub_total += product.unit_price
+    end
   end
 
   # def update

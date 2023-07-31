@@ -1,5 +1,6 @@
 <div class="container">
-  <div class="fs-3">INVOICE</div>
+  <div class="fs-1">ALL INVOICES</div>
+  <%= link_to "Create new invoice", new_invoice_path, class: "btn btn-secondary my-3" %>
   <% @invoices.each do |invoice| %>
     <ul class="list-unstyled">
       <li>Order date: <%= invoice.order_date %></li>
