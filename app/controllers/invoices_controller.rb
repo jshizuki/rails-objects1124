@@ -22,9 +22,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # def edit
-  # end
-
   def show
     @invoice = Invoice.find(params[:id])
 
@@ -32,10 +29,24 @@ class InvoicesController < ApplicationController
     @invoice.products.each do |product|
       @sub_total += product.unit_price
     end
+
+    @discount = ((@invoice.discount / 100.to_f) * @sub_total).to_i
+    @total = @sub_total + @invoice.shipping_fee - @discount
   end
 
-  # def update
-  # end
+  def edit
+    @invoice = Invoice.find(params[:id])
+  end
+
+  def update
+    @invoice = Invoice.find(params[:id])
+    @sold_products = @invoice.products.where(sold: true)
+    @sold_products.each { |product| product.sold = false }
+    @invoice.save
+    @invoice.products = Product.where(id: params[:invoice][:product_ids])
+    @invoice.save
+    redirect_to invoice_path(@invoice)
+  end
 
   # def destroy
   # end
@@ -43,6 +54,8 @@ class InvoicesController < ApplicationController
   private
 
   def invoice_params
-    params.require(:invoice).permit(:order_date, :billed_to, :shipping_fee, :discount, products_attributes: [:sku])
+    params.require(:invoice).permit(:order_date, :billed_to, :shipping_fee, :discount)
   end
 end
+
+# products_attributes: [:sku]

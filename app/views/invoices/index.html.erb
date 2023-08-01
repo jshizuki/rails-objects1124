@@ -2,10 +2,14 @@
   <div class="fs-1">ALL INVOICES</div>
   <%= link_to "Create new invoice", new_invoice_path, class: "btn btn-secondary my-3" %>
   <% @invoices.each do |invoice| %>
-    <ul class="list-unstyled">
-      <%= link_to invoice_path(invoice), class:"text-decoration-none link-secondary" do %>
-        <li>Order No.: <%= "INV#{invoice.invoice_number}" %></li>
-      <% end %>
-    </ul>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title text-center">
+          <%= link_to invoice_path(invoice), target: :_blank, class:"text-decoration-none link-secondary" do %>
+            Order No.: <%= "INV#{invoice.invoice_number}" %>
+          <% end %>
+        </h5>
+      </div>
+    </div>
   <% end %>
 </div>

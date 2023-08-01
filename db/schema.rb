@@ -20,8 +20,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_31_161011) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "invoice_number", default: 10000
-    t.integer "shipping_fee"
-    t.integer "discount"
+    t.integer "shipping_fee", default: 0
+    t.integer "discount", default: 0
   end
 
   create_table "products", force: :cascade do |t|
