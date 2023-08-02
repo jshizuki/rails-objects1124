@@ -11,12 +11,13 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.new(invoice_params)
 
     if @invoice.valid?
+      # Create each product's invoice number
       @invoice.invoice_number = Invoice.all.empty? ? 10_001 : Invoice.maximum(:invoice_number) + 1
-      # Update each product's invoice number
+      # Update each product's sold status (false --> true)
       @invoice.products = Product.where(id: params[:invoice][:product_ids])
       @invoice.products.each { |product| product.sold = true }
       @invoice.save
-      redirect_to invoice_path(@invoice), target: '_blank'
+      redirect_to invoice_path(@invoice)
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,7 +31,7 @@ class InvoicesController < ApplicationController
       @sub_total += product.unit_price
     end
 
-    @discount = ((@invoice.discount / 100.to_f) * (@sub_total + @invoice.shipping_fee)).to_i
+    @discount = ((@invoice.discount / 100.to_f) * @sub_total).round
     @total = @sub_total + @invoice.shipping_fee - @discount
   end
 
@@ -40,14 +41,17 @@ class InvoicesController < ApplicationController
 
   def update
     @invoice = Invoice.find(params[:id])
-    # Undo sold products to false first
-    @sold_products = @invoice.products.where(sold: true)
-    @sold_products.each { |product| product.sold = false }
-    @invoice.save
+    # Reset sold products to false first, then reset invoice number to nil
+    sold_products = @invoice.products
+    sold_products.each do |product|
+      product.update(invoice_id: nil, sold: false)
+    end
     # Update sold products
-    @invoice.products = Product.where(id: params[:invoice][:product_ids])
+    new_sold_products = Product.where(id: params[:invoice][:product_ids])
+    new_sold_products.each do |product|
+      product.update(invoice_id: @invoice.id, sold: true)
+    end
     @invoice.update(invoice_params)
-    @invoice.save
     redirect_to invoice_path(@invoice)
   end
 

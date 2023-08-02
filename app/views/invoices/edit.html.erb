@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="fs-1">INVOICE</div>
+  <div class="fs-1">EDIT INVOICE <%= "INV#{@invoice.invoice_number}" %></div>
   <div class="my-4">
     <%= simple_form_for @invoice do |each| %>
       <%= each.input :order_date %>

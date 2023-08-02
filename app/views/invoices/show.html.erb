@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @invoice.products.each do |product| %>
+      <% @invoice.products.sort.each do |product| %>
         <tr class="text-center">
           <td><%= product.sku %></td>
           <td><%= product.name %></td>
@@ -31,16 +31,16 @@
     <p class="m-0">Sub-total</p>
     <p class="m-0"><%= @sub_total %></p>
   </div>
-  <% unless @invoice.shipping_fee == 0 %>
-    <div class="d-flex justify-content-between">
-      <p class="m-0">Shipping Fee</p>
-      <p class="m-0"><%= @invoice.shipping_fee %></p>
-    </div>
-  <% end %>
   <% unless @invoice.discount == 0 %>
     <div class="d-flex justify-content-between">
       <p class="m-0"><%= "[Discount #{@invoice.discount}%]" %></p>
       <p class="m-0"><%= "-#{@discount}" %></p>
+    </div>
+  <% end %>
+  <% unless @invoice.shipping_fee == 0 %>
+    <div class="d-flex justify-content-between">
+      <p class="m-0">Shipping Fee</p>
+      <p class="m-0"><%= @invoice.shipping_fee %></p>
     </div>
   <% end %>
   <hr>

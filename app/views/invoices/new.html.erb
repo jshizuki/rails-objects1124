@@ -1,11 +1,11 @@
 <div class="container">
-  <div class="fs-1">INVOICE</div>
+  <div class="fs-1">NEW INVOICE</div>
   <div class="my-4">
     <%= simple_form_for @invoice do |each| %>
       <%= each.input :order_date %>
       <%= each.input :billed_to %>
       <%= each.input :product_ids, collection: Product.where(sold: false).order(sku: :asc), label_method: :sku_and_name, value_method: :id, as: :check_boxes %>
-      <%= each.input :shipping_fee %>
+      <%= each.input :shipping_fee, label: "Shipping fee ($)" %>
       <%= each.input :discount, label: "Discount (%)" %>
       <%= each.submit %>
     <% end %>
