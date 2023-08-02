@@ -20,9 +20,9 @@
         <tr class="text-center">
           <td><%= product.sku %></td>
           <td><%= product.name %></td>
-          <td>1</td>
+          <td><%= product.quantity %></td>
           <td><%= product.unit_price %></td>
-          <td><%= product.unit_price %></td>
+          <td><%= product.unit_price * product.quantity %></td>
         </tr>
       <% end %>
     </tbody>
@@ -48,7 +48,7 @@
     <div class="fs-5">TOTAL:</div>
     <div class="fs-5">HK$ <%= @total %></div>
   </div>
-  <div class="fs-4 my-5">
+  <div class="fs-6 my-5">
     Thank you for shopping with us.  We hope our artisanal objects will shed some light and warmth in your daily life.
   </div>
   <hr>

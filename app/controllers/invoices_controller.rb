@@ -16,7 +16,7 @@ class InvoicesController < ApplicationController
       @invoice.products = Product.where(id: params[:invoice][:product_ids])
       @invoice.products.each { |product| product.sold = true }
       @invoice.save
-      redirect_to invoice_path(@invoice)
+      redirect_to invoice_path(@invoice), target: '_blank'
     else
       render :new, status: :unprocessable_entity
     end
@@ -40,9 +40,11 @@ class InvoicesController < ApplicationController
 
   def update
     @invoice = Invoice.find(params[:id])
+    # Undo sold products to false first
     @sold_products = @invoice.products.where(sold: true)
     @sold_products.each { |product| product.sold = false }
     @invoice.save
+    # Update sold products
     @invoice.products = Product.where(id: params[:invoice][:product_ids])
     @invoice.save
     redirect_to invoice_path(@invoice)

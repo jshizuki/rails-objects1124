@@ -39,29 +39,30 @@ Invoice.destroy_all
 puts 'Creating products...'
 
 products = [
-  { sku: 'OBJ001', name: 'The Chill', unit_price: 850 },
-  { sku: 'OBJ002', name: 'The Laid-back', unit_price: 650 },
-  { sku: 'OBJ003', name: 'The Beat', unit_price: 750 },
-  { sku: 'OBJ004', name: 'The One', unit_price: 850 },
-  { sku: 'OBJ005', name: 'The Ballad', unit_price: 650 },
-  { sku: 'OBJ006', name: 'The Rap', unit_price: 650 },
-  { sku: 'OBJ007', name: 'The Classy-fused', unit_price: 1050 },
-  { sku: 'OBJ008', name: 'The R&B', unit_price: 750 },
-  { sku: 'OBJ009', name: 'The Pop', unit_price: 750 },
-  { sku: 'OBJ010', name: 'The Groovy', unit_price: 850 },
-  { sku: 'OBJ011', name: 'The Funky', unit_price: 550 },
-  { sku: 'OBJ012', name: 'The Funky', unit_price: 550 },
-  { sku: 'OBJ013', name: 'The Funky', unit_price: 550 },
-  { sku: 'OBJ014', name: 'The Funky', unit_price: 550 },
-  { sku: 'OBJ015', name: 'The Funky', unit_price: 550 },
-  { sku: 'OBJ016', name: 'The Chawan', unit_price: 450 },
-  { sku: 'OBJ017', name: 'The Chawan', unit_price: 450 }
+  { sku: 'OBJ001', name: 'The Chill', quantity: 1, unit_price: 850 },
+  { sku: 'OBJ002', name: 'The Laid-back', quantity: 1, unit_price: 650 },
+  { sku: 'OBJ003', name: 'The Beat', quantity: 1, unit_price: 750 },
+  { sku: 'OBJ004', name: 'The One', quantity: 1, unit_price: 850 },
+  { sku: 'OBJ005', name: 'The Ballad', quantity: 1, unit_price: 650 },
+  { sku: 'OBJ006', name: 'The Rap', quantity: 1, unit_price: 650 },
+  { sku: 'OBJ007', name: 'The Classy-fused', quantity: 1, unit_price: 1050 },
+  { sku: 'OBJ008', name: 'The R&B', quantity: 1, unit_price: 750 },
+  { sku: 'OBJ009', name: 'The Pop', quantity: 1, unit_price: 750 },
+  { sku: 'OBJ010', name: 'The Groovy', quantity: 1, unit_price: 850 },
+  { sku: 'OBJ011', name: 'The Funky', quantity: 1, unit_price: 550 },
+  { sku: 'OBJ012', name: 'The Funky', quantity: 1, unit_price: 550 },
+  { sku: 'OBJ013', name: 'The Funky', quantity: 1, unit_price: 550 },
+  { sku: 'OBJ014', name: 'The Funky', quantity: 1, unit_price: 550 },
+  { sku: 'OBJ015', name: 'The Funky', quantity: 1, unit_price: 550 },
+  { sku: 'OBJ016', name: 'The Chawan', quantity: 1, unit_price: 450 },
+  { sku: 'OBJ017', name: 'The Chawan', quantity: 1, unit_price: 450 }
 ]
 
 products.each do |product|
   item = Product.create(
     sku: product[:sku],
     name: product[:name],
+    quantity: product[:quantity],
     unit_price: product[:unit_price]
   )
   puts "Product #{item.id} has been created."

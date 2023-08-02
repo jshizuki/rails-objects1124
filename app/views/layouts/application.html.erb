@@ -9,7 +9,12 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
   <body>
-    <%= render partial: 'logo' %>
-    <%= yield %>
-  </body>
+  </div>
+  <%# Avoid showing navbar on show page %>
+  <% unless params[:action] == 'show' && params[:controller] == 'invoices' %>
+    <%= render 'shared/navbar' %>
+  <% end %>
+  <%= render 'shared/logo' %>
+  <%= yield %>
+</body>
 </html>
