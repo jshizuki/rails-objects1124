@@ -30,7 +30,7 @@ class InvoicesController < ApplicationController
       @sub_total += product.unit_price
     end
 
-    @discount = ((@invoice.discount / 100.to_f) * @sub_total).to_i
+    @discount = ((@invoice.discount / 100.to_f) * (@sub_total + @invoice.shipping_fee)).to_i
     @total = @sub_total + @invoice.shipping_fee - @discount
   end
 
@@ -46,6 +46,7 @@ class InvoicesController < ApplicationController
     @invoice.save
     # Update sold products
     @invoice.products = Product.where(id: params[:invoice][:product_ids])
+    @invoice.update(invoice_params)
     @invoice.save
     redirect_to invoice_path(@invoice)
   end
