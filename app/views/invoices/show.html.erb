@@ -1,13 +1,13 @@
 <div class="container">
   <div class="fs-1">INVOICE</div>
-  <div class="fs-5 d-flex justify-content-between">
+  <div class="fs-3 d-flex justify-content-between">
     <div>ORDER DATE: <%= @invoice.order_date %></div>
     <div>Order No.: <%= "INV#{@invoice.invoice_number}" %></div>
   </div>
-  <div class="fs-5">BILLED TO: <%= @invoice.billed_to %></div>
-  <table class="table table-striped table-borderless my-5">
+  <div class="fs-3">BILLED TO: <%= @invoice.billed_to %></div>
+  <table class="table table-striped table-borderless my-4">
     <thead>
-      <tr class="text-center">
+      <tr class="fs-3 text-center">
         <th scope="col">ITEM NO.</th>
         <th scope="col">DESCRIPTION</th>
         <th scope="col">QTY</th>
@@ -17,7 +17,7 @@
     </thead>
     <tbody>
       <% @invoice.products.sort.each do |product| %>
-        <tr class="text-center">
+        <tr class="fs-3 text-center">
           <td><%= product.sku %></td>
           <td><%= product.name %></td>
           <td><%= product.quantity %></td>
@@ -28,33 +28,33 @@
     </tbody>
   </table>
   <div class="d-flex justify-content-between">
-    <p class="m-0">Sub-total</p>
-    <p class="m-0"><%= @sub_total %></p>
+    <p class="fs-3 m-0">Sub-total</p>
+    <p class="fs-3 m-0"><%= @sub_total %></p>
   </div>
   <% unless @invoice.discount == 0 %>
     <div class="d-flex justify-content-between">
-      <p class="m-0"><%= "[Discount #{@invoice.discount}%]" %></p>
-      <p class="m-0"><%= "-#{@discount}" %></p>
+      <p class="fs-3 m-0"><%= "[Discount #{@invoice.discount}%]" %></p>
+      <p class="fs-3 m-0"><%= "-#{@discount}" %></p>
     </div>
   <% end %>
   <% unless @invoice.shipping_fee == 0 %>
     <div class="d-flex justify-content-between">
-      <p class="m-0">Shipping Fee</p>
-      <p class="m-0"><%= @invoice.shipping_fee %></p>
+      <p class="fs-3 m-0">Shipping Fee</p>
+      <p class="fs-3 m-0"><%= @invoice.shipping_fee %></p>
     </div>
   <% end %>
   <hr>
   <div class="d-flex justify-content-between">
-    <div class="fs-5">TOTAL:</div>
-    <div class="fs-5">HK$ <%= @total %></div>
+    <div class="fs-2">TOTAL:</div>
+    <div class="fs-2">HK$ <%= @total %></div>
   </div>
-  <div class="fs-6 my-5">
+  <div class="fs-4 my-4">
     Thank you for shopping with us.  We hope our artisanal objects will shed some light and warmth in your daily life.
   </div>
   <hr>
-  <div class="d-flex justify-content-between">
-    <div><i class="fa-solid fa-phone"></i>  +852 9511 7552</div>
-    <div><i class="fa-brands fa-instagram"></i>  theobjects_1124</div>
-    <div><i class="fa-regular fa-envelope"></i>  theobjectsatelier@gmail.com</div>
+  <div class="d-flex justify-content-between mb-3">
+    <div class="fs-5"><i class="fa-solid fa-phone"></i>  +852 9511 7552</div>
+    <div class="fs-5"><i class="fa-brands fa-instagram"></i>  theobjects_1124</div>
+    <div class="fs-5"><i class="fa-regular fa-envelope"></i>  theobjectsatelier@gmail.com</div>
   </div>
 </div>

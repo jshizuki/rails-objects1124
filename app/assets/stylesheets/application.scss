@@ -12,6 +12,33 @@
 @import "components/index";
 @import "pages/index";
 
-body {
-  background-color: aqua;
+.fs-1 {
+  font-size: 33.9px !important;
 }
+
+.fs-2 {
+  font-size: 21px !important;
+}
+
+.fs-3 {
+  font-size: 18px !important;
+}
+
+.fs-4 {
+  font-size: 16.2px !important;
+}
+
+.fs-5 {
+  font-size: 12px !important;
+}
+
+body {
+  font-size: 18px;
+}
+
+// 8, 10.8, 12, 14, 22.6
+// fs-1 22.6 (invoice)
+// fs-2 14 (total)
+// fs-3 12 (order date, order no, billed to, item no, description, qty, unit price, amount, subtotal, shipping fee, discount)
+// fs-4 10.8 (default message)
+// fs-5 8 (social)

@@ -1,14 +1,4 @@
 <div class="container">
   <div class="fs-1">EDIT INVOICE <%= "INV#{@invoice.invoice_number}" %></div>
-  <div class="my-4">
-    <%= simple_form_for @invoice do |each| %>
-      <%= each.input :order_date %>
-      <%= each.input :billed_to %>
-      <% sold_product_ids = @invoice.products.pluck(:id) %>
-      <%= each.input :product_ids, collection: Product.where(sold: false).or(Product.where(id: sold_product_ids)).order(sku: :asc), label_method: :sku_and_name, value_method: :id, as: :check_boxes, checked: sold_product_ids %>
-      <%= each.input :shipping_fee, label: "Shipping fee ($)" %>
-      <%= each.input :discount, label: "Discount (%)" %>
-      <%= each.submit %>
-    <% end %>
-  </div>
+  <%= render 'form' %>
 </div>

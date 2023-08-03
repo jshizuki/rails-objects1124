@@ -29,7 +29,8 @@ module RailsObjects1124
     # in config/environments, which are processed later.
     #
     # config.time_zone = "Central Time (US & Canada)"
-    config.time_zone = 'Tokyo'
+    # config/application.rb
+    config.time_zone = 'Asia/Hong_Kong'
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Don't generate system test files.

@@ -1,13 +1,15 @@
-<div class="container">
-  <div class="fs-1">INVOICE</div>
-  <div class="my-4">
-    <%= simple_form_for @invoice do |each| %>
-      <%= each.input :order_date %>
-      <%= each.input :billed_to %>
-      <%= each.input :product_ids, collection: Product.where(sold: false).order(sku: :asc), label_method: :sku_and_name, value_method: :id, as: :check_boxes %>
-      <%= each.input :shipping_fee %>
-      <%= each.input :discount, label: "Discount (%)" %>
-      <%= each.submit %>
+<div class="my-4">
+  <%= simple_form_for @invoice do |each| %>
+    <%= each.input :order_date, input_html: { class: 'fs-4' } %>
+    <%= each.input :billed_to, input_html: { class: 'fs-4' } %>
+    <% if @invoice.new_record? %>
+      <%= each.input :product_ids, collection: Product.where(sold: false).order(sku: :asc), label_method: :sku_and_name, value_method: :id, as: :check_boxes, input_html: { class: 'fs-4' } %>
+    <% else %>
+      <% sold_product_ids = @invoice.products.pluck(:id) %>
+      <%= each.input :product_ids, collection: Product.where(sold: false).or(Product.where(id: sold_product_ids)).order(sku: :asc), label_method: :sku_and_name, value_method: :id, as: :check_boxes, checked: sold_product_ids %>
     <% end %>
-  </div>
+    <%= each.input :shipping_fee, label: "Shipping fee ($)", input_html: { class: 'fs-4' } %>
+    <%= each.input :discount, label: "Discount (%)", input_html: { class: 'fs-4' } %>
+    <%= each.submit @invoice.new_record? ? 'Create invoice' : 'Edit invoice' %>
+  <% end %>
 </div>
