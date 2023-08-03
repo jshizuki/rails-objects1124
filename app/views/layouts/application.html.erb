@@ -11,7 +11,7 @@
   </head>
   <body>
     <%# Avoid showing navbar on show page %>
-    <% unless params[:action] == 'show' && params[:controller] == 'invoices' %>
+    <% unless params[:action] == 'show' && params[:controller] == 'objects_invoices' %>
       <%= render 'shared/navbar' %>
     <% end %>
     <%= render 'shared/logo' %>

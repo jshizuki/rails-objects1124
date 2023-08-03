@@ -23,7 +23,9 @@ default: &default
 
 development:
   <<: *default
-  database: rails_objects1124_development
+  # For single-db
+  # database: rails_objects1124_development
+  database: single_db_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_02_022801) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_03_162938) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "invoices", force: :cascade do |t|
+  create_table "objects_invoices", force: :cascade do |t|
     t.date "order_date"
     t.string "billed_to"
     t.datetime "created_at", null: false
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_022801) do
     t.integer "discount", default: 0
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "objects_products", force: :cascade do |t|
     t.string "sku"
     t.string "name"
     t.integer "unit_price"
@@ -33,8 +33,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_022801) do
     t.bigint "invoice_id"
     t.boolean "sold", default: false
     t.integer "quantity"
-    t.index ["invoice_id"], name: "index_products_on_invoice_id"
+    t.index ["invoice_id"], name: "index_objects_products_on_invoice_id"
   end
 
-  add_foreign_key "products", "invoices"
+  add_foreign_key "objects_products", "objects_invoices", column: "invoice_id"
 end

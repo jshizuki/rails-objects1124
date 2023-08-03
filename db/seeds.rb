@@ -7,8 +7,8 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 puts 'Cleaning database...'
-Product.destroy_all
-Invoice.destroy_all
+ObjectsProduct.destroy_all
+ObjectsInvoice.destroy_all
 
 # INVOICE instances
 
@@ -59,7 +59,7 @@ products = [
 ]
 
 products.each do |product|
-  item = Product.create(
+  item = ObjectsProduct.create(
     sku: product[:sku],
     name: product[:name],
     quantity: product[:quantity],
@@ -68,4 +68,4 @@ products.each do |product|
   puts "Product #{item.id} has been created."
 end
 
-puts "Successfully created #{Product.count} products."
+puts "Successfully created #{ObjectsProduct.count} products."

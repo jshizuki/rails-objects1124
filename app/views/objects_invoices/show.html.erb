@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @invoice.products.sort.each do |product| %>
+      <% @invoice.objects_products.sort.each do |product| %>
         <tr class="fs-3 text-center">
           <td><%= product.sku %></td>
           <td><%= product.name %></td>

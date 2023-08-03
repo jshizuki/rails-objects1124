@@ -1,5 +1,7 @@
-class Invoice < ApplicationRecord
-  has_many :products
+class ObjectsInvoice < ApplicationRecord
+  # self.table_name = 'objects_invoices'
+  has_many :objects_products
+  # , foreign_key: 'objects_invoice_id'
   # accepts_nested_attributes_for :products
 
   validates_presence_of :order_date, :billed_to
