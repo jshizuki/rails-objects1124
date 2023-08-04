@@ -4,11 +4,11 @@
       <div class="card border-3 m-3 positive-relative" style="width: 15rem;">
         <div class="card-body d-flex justify-content-center align-items-center">
           <h5 class="card-title text-center">
-            <%= link_to objects_invoice_path(invoice), target: :_blank, class:"fs-4 text-decoration-none link-secondary" do %>
+            <%= link_to objects_invoice_path(invoice), class:"fs-4 text-decoration-none link-secondary" do %>
               <%= "INV#{invoice.invoice_number}" %>
             <% end %>
           </h5>
-          <%= link_to edit_objects_invoice_path(invoice), target: :_blank, class: "fs-4 link-secondary position-absolute bottom-0 end-0 m-1" do %>
+          <%= link_to edit_objects_invoice_path(invoice), class: "fs-4 link-secondary position-absolute bottom-0 end-0 m-1" do %>
             <i class="fa-regular fa-pen-to-square"></i>
           <% end %>
         </div>
