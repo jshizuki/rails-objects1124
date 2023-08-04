@@ -1,5 +1,5 @@
 class ObjectsInvoicesController < ApplicationController
-  before_action :find_invoice, only: %i[show edit update]
+  before_action :find_invoice, only: %i[show edit update destroy]
 
   def index
     @invoices = ObjectsInvoice.all
@@ -45,8 +45,15 @@ class ObjectsInvoicesController < ApplicationController
     redirect_to objects_invoice_path(@invoice)
   end
 
-  # def destroy
-  # end
+  def destroy
+    # @article.destroy will do the same job but is generally preferred if there're callback actions
+    sold_products = @invoice.objects_products
+    sold_products.each do |product|
+      product.update(objects_invoice_id: nil, sold: false)
+    end
+    @invoice.delete
+    redirect_to objects_invoices_path, status: :see_other
+  end
 
   private
 

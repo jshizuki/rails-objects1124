@@ -1,39 +1,41 @@
 <div class="container">
   <div class="fs-1">INVOICE</div>
   <div class="fs-3 d-flex justify-content-between">
-    <div>ORDER DATE: <%= @invoice.order_date %></div>
-    <div>Order No.: <%= "INV#{@invoice.invoice_number}" %></div>
+    <div class="text-start">ORDER DATE: <%= @invoice.order_date %></div>
+    <div class="text-end">Order No.: <%= "INV#{@invoice.invoice_number}" %></div>
   </div>
   <div class="fs-3">BILLED TO: <%= @invoice.billed_to %></div>
-  <table class="table table-striped table-borderless my-4">
-    <thead>
-      <tr class="fs-3 text-center">
-        <th scope="col">ITEM NO.</th>
-        <th scope="col">DESCRIPTION</th>
-        <th scope="col">QTY</th>
-        <th scope="col">UNIT PRICE</th>
-        <th scope="col">AMOUNT(HK$)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @invoice.objects_products.sort.each do |product| %>
+  <div class="table-responsive-sm">
+    <table class="table table-striped table-borderless my-4">
+      <thead>
         <tr class="fs-3 text-center">
-          <td><%= product.sku %></td>
-          <td><%= product.name %></td>
-          <td><%= product.quantity %></td>
-          <td><%= product.unit_price %></td>
-          <td><%= product.unit_price * product.quantity %></td>
+          <th scope="col" class="align-top">ITEM NO.</th>
+          <th scope="col" class="align-top">DESCRIPTION</th>
+          <th scope="col" class="align-top">QTY</th>
+          <th scope="col" class="align-top">UNIT PRICE</th>
+          <th scope="col" class="align-top">AMOUNT(HK$)</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @invoice.objects_products.sort.each do |product| %>
+          <tr class="fs-3 text-center">
+            <td><%= product.sku %></td>
+            <td><%= product.name %></td>
+            <td><%= product.quantity %></td>
+            <td><%= product.unit_price %></td>
+            <td><%= product.unit_price * product.quantity %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
   <div class="d-flex justify-content-between">
     <p class="fs-3 m-0">Sub-total</p>
     <p class="fs-3 m-0"><%= @sub_total %></p>
   </div>
   <% unless @invoice.discount == 0 %>
     <div class="d-flex justify-content-between">
-      <p class="fs-3 m-0"><%= "[Discount #{@invoice.discount}%]" %></p>
+      <p class="fs-3 m-0"><%= "Discount (#{@invoice.discount}%)" %></p>
       <p class="fs-3 m-0"><%= "-#{@discount}" %></p>
     </div>
   <% end %>
