@@ -19,39 +19,25 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def show
-    @sub_total = 0
-    @invoice.objects_products.each do |product|
-      @sub_total += product.unit_price
-    end
-
-    @discount = ((@invoice.discount / 100.to_f) * @sub_total).round
-    @total = @sub_total + @invoice.shipping_fee - @discount
+    @sub_total = calculate_sub_total
+    @discount = calculate_discount
+    @total = calculate_total
   end
 
   def edit; end
 
   def update
-    # Reset sold products to false first, then reset invoice number to nil
-    sold_products = @invoice.objects_products
-    sold_products.each do |product|
-      product.update(objects_invoice_id: nil, sold: false)
-    end
-    # Update sold products
-    new_sold_products = ObjectsProduct.where(id: params[:objects_invoice][:objects_product_ids])
-    new_sold_products.each do |product|
-      product.update(objects_invoice_id: @invoice.id, sold: true)
-    end
-    @invoice.update(invoice_params)
+    reset_sold_products
+    update_sold_products
+    update_invoice
+
     redirect_to objects_invoice_path(@invoice)
   end
 
   def destroy
-    # @article.destroy will do the same job but is generally preferred if there're callback actions
-    sold_products = @invoice.objects_products
-    sold_products.each do |product|
-      product.update(objects_invoice_id: nil, sold: false)
-    end
-    @invoice.delete
+    reset_sold_products
+    delete_invoice
+
     redirect_to objects_invoices_path, status: :see_other
   end
 
@@ -60,6 +46,12 @@ class ObjectsInvoicesController < ApplicationController
   def find_invoice
     @invoice = ObjectsInvoice.find(params[:id])
   end
+
+  def invoice_params
+    params.require(:objects_invoice).permit(:order_date, :billed_to, :shipping_fee, :discount)
+  end
+
+  # CREATE
 
   def build_invoice
     @invoice = ObjectsInvoice.new(invoice_params)
@@ -74,7 +66,40 @@ class ObjectsInvoicesController < ApplicationController
     invoice
   end
 
-  def invoice_params
-    params.require(:objects_invoice).permit(:order_date, :billed_to, :shipping_fee, :discount)
+  # SHOW
+
+  def calculate_sub_total
+    @invoice.objects_products.sum(&:unit_price)
+  end
+
+  def calculate_discount
+    return 0 if @invoice.discount.nil?
+
+    @discount = ((@invoice.discount / 100.0) * @sub_total).round
+  end
+
+  def calculate_total
+    shipping_fee = @invoice.shipping_fee || 0
+    @sub_total - @discount + shipping_fee
+  end
+
+  # UPDATE
+
+  def reset_sold_products
+    @invoice.objects_products.update_all(objects_invoice_id: nil, sold: false)
+  end
+
+  def update_sold_products
+    new_sold_products = ObjectsProduct.where(id: params[:objects_invoice][:objects_product_ids])
+    new_sold_products.update_all(objects_invoice_id: @invoice.id, sold: true)
+  end
+
+  def update_invoice
+    @invoice.update(invoice_params)
+  end
+
+  # DESTROY
+  def delete_invoice
+    @invoice.delete
   end
 end
