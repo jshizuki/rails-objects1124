@@ -12,10 +12,13 @@
   <body>
     <%# Avoid showing navbar on show page %>
     <% # unless params[:action] == 'show' && params[:controller] == 'objects_invoices' %>
-    <%= render 'shared/navbar' %>
-    <% # end %>
-    <%= render 'shared/logo' %>
-    <%= yield %>
+    <div class="content">
+      <div class="background-layer"></div>
+      <%= render 'shared/navbar' %>
+      <% # end %>
+      <%= render 'shared/logo' %>
+      <%= yield %>
+    </div>
   </div>
 </body>
 </html>

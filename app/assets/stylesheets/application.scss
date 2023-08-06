@@ -36,22 +36,24 @@ body {
   font-size: 18px;
 }
 
-// .content {
-//   height: 100vh;
-//   position: relative;
-// }
+.content {
+  height: 100vh;
+  position: relative;
+}
 
-// .background-layer {
-//   position: fixed;
-//   /* top: 0;
-//   left: 0; */
-//   width: 100%;
-//   height: 100%;
-//   opacity: 0.15;
-//   background-size: cover;
-//   // filter: grayscale(100%);
-//   z-index: -1;
-// }
+.background-layer {
+  position: fixed;
+  /* top: 0;
+  left: 0; */
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  background-size: cover;
+  background-image: url("http://res.cloudinary.com/devv0w8un/image/upload/mdhhilvsbza01jnqrmku");
+  background-position-y: 60%;
+  filter: grayscale(100%);
+  z-index: -1;
+}
 
 // 8, 10.8, 12, 14, 22.6
 // fs-1 22.6 (invoice)

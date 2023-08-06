@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-center row-cols-3 ">
-    <% @invoices.each do |invoice| %>
+    <% @invoices.sort.each do |invoice| %>
       <div class="card text-bg-light m-3 positive-relative" style="width: 15rem;">
         <div class="card-body d-flex justify-content-center align-items-center">
           <h5 class="card-title text-center">
