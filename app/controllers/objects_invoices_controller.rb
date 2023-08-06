@@ -75,7 +75,8 @@ class ObjectsInvoicesController < ApplicationController
   def calculate_discount
     return 0 if @invoice.discount.nil?
 
-    @discount = ((@invoice.discount / 100.0) * @sub_total).round
+    @invoice.discount
+    # # @discount = ((@invoice.discount / 100.0) * @sub_total).round
   end
 
   def calculate_total

@@ -35,7 +35,7 @@
   </div>
   <% unless @invoice.discount.nil? || @invoice.discount.zero? %>
     <div class="d-flex justify-content-between">
-      <p class="fs-3 m-0"><%= "Discount (#{@invoice.discount}%)" %></p>
+      <p class="fs-3 m-0"><%= "Discount" %></p>
       <p class="fs-3 m-0"><%= "-#{@discount}" %></p>
     </div>
   <% end %>
