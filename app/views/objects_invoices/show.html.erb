@@ -33,16 +33,10 @@
     <p class="fs-3 m-0">Sub-total</p>
     <p class="fs-3 m-0"><%= @sub_total %></p>
   </div>
-  <% unless @invoice.discount_percentage.nil? || @invoice.discount_percentage.zero? %>
+  <% unless @invoice.discount_input.nil? || @invoice.discount_input.zero? %>
     <div class="d-flex justify-content-between">
-      <p class="fs-3 m-0"><%= "Discount (#{@invoice.discount_percentage}%)" %></p>
-      <p class="fs-3 m-0"><%= "-#{@percent_discount}" %></p>
-    </div>
-  <% end %>
-  <% unless @invoice.discount_amount.nil? || @invoice.discount_amount.zero? %>
-    <div class="d-flex justify-content-between">
-      <p class="fs-3 m-0"><%= "Additional Discount" %></p>
-      <p class="fs-3 m-0"><%= "-#{@amount_discount}" %></p>
+      <p class="fs-3 m-0">Discount <%= @invoice.discount_type == "percentage" ? "(#{@invoice.discount_input}%)" : "" %></p>
+      <p class="fs-3 m-0"><%= "-#{@discount}" %></p>
     </div>
   <% end %>
   <% unless @invoice.shipping_fee.nil? || @invoice.shipping_fee.zero? %>

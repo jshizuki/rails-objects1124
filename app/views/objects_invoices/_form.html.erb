@@ -9,9 +9,11 @@
       <%= form.input :objects_product_ids, collection: ObjectsProduct.where(sold: false).or(ObjectsProduct.where(id: sold_product_ids)).order(sku: :asc),
       label_method: :sku_and_name, value_method: :id, as: :check_boxes, checked: sold_product_ids %>
     <% end %>
-    <%= form.input :shipping_fee, label: "Shipping fee ($)", input_html: { class: 'fs-4' } %>
-    <%= form.input :discount_percentage, label: "Discount (%)", input_html: { class: 'fs-4' } %>
-    <%= form.input :discount_amount, label: "Discount amount ($)", input_html: { class: 'fs-4' } %>
+    <%= form.input :shipping_fee, label: 'Shipping fee ($)', input_html: { class: 'fs-4' } %>
+    <%= form.label :discount_type, 'Discount', class: 'fs-4 mb-2' %>
+    <%# Below, array 0 is label and array 1 is value %>
+    <%= form.select :discount_type, [['Percentage (%)', 'percentage'], ['Absolute amount', 'amount']], {}, class: 'fs-4' %>
+    <%= form.text_field :discount_input, class: 'form-control fs-4 mb-3' %>
     <%= form.submit @invoice.new_record? ? 'Create invoice' : 'Edit invoice', class: "mb-5" %>
   <% end %>
 </div>

@@ -20,9 +20,7 @@ class ObjectsInvoicesController < ApplicationController
 
   def show
     @sub_total = calculate_sub_total
-    @percent_discount = calculate_percent_discount
-    @amount_discount = calculate_amount_discount
-    @discount = @percent_discount + @amount_discount
+    @discount = calculate_discount
     @total = calculate_total
   end
 
@@ -49,6 +47,16 @@ class ObjectsInvoicesController < ApplicationController
     @invoice = ObjectsInvoice.find(params[:id])
   end
 
+  def invoice_params
+    params.require(:objects_invoice).permit(
+      :order_date,
+      :billed_to,
+      :shipping_fee,
+      :discount_type,
+      :discount_input
+    )
+  end
+
   # CREATE
 
   def build_invoice
@@ -70,16 +78,14 @@ class ObjectsInvoicesController < ApplicationController
     @invoice.objects_products.sum(&:unit_price)
   end
 
-  def calculate_percent_discount
-    return 0 if @invoice.discount_percentage.nil?
+  def calculate_discount
+    return 0 if @invoice.discount_input.nil?
 
-    ((@invoice.discount_percentage / 100.0) * @sub_total).round
-  end
-
-  def calculate_amount_discount
-    return 0 if @invoice.discount_amount.nil?
-
-    @invoice.discount_amount
+    if @invoice.discount_type == 'percentage'
+      ((@invoice.discount_input / 100.0) * @sub_total).round
+    else
+      @invoice.discount_input
+    end
   end
 
   def calculate_total
@@ -107,13 +113,4 @@ class ObjectsInvoicesController < ApplicationController
     @invoice.delete
   end
 
-  def invoice_params
-    params.require(:objects_invoice).permit(
-      :order_date,
-      :billed_to,
-      :shipping_fee,
-      :discount_percentage,
-      :discount_amount
-    )
-  end
 end
