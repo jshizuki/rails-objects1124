@@ -13,7 +13,7 @@
     <%= form.label :discount_type, 'Discount', input_html: { class: 'fs-4' } %>
     <%# Below, array 0 is label and array 1 is value %>
     <%= form.select :discount_type, [['Percentage (%)', 'percentage'], ['Absolute amount', 'amount']], {}, input_html: { class: 'fs-4' } %>
-    <%= form.text_field :discount_input, class: 'form-control fs-4 mt-2' %>
+    <%= form.input :discount_input, label: false, input_html: { class: 'fs-4 mt-2' } %>
     <%= form.submit @invoice.new_record? ? 'Create invoice' : 'Edit invoice', class: "my-3" %>
   <% end %>
 </div>

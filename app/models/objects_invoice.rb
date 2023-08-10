@@ -3,6 +3,6 @@ class ObjectsInvoice < ApplicationRecord
   has_many :objects_products
   # , foreign_key: 'objects_invoice_id'
 
-  validates_presence_of :order_date, :billed_to, :discount_type, allow_blank: true
+  validates_presence_of :order_date, :billed_to, allow_blank: true
   validates_numericality_of :shipping_fee, :discount_input, greater_than_or_equal_to: 0, allow_blank: true
 end
