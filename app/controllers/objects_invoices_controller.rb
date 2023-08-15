@@ -112,5 +112,4 @@ class ObjectsInvoicesController < ApplicationController
   def delete_invoice
     @invoice.delete
   end
-
 end
