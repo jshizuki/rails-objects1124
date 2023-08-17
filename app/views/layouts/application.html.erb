@@ -13,10 +13,14 @@
     <%# Avoid showing navbar on show page %>
     <% # unless params[:action] == 'show' && params[:controller] == 'objects_invoices' %>
     <div class="content">
+      <%# The two lines below are for Devise %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
       <div class="background-layer"></div>
       <%= render 'shared/navbar' %>
       <% # end %>
       <%= render 'shared/logo' %>
+      <%= render "shared/flashes" %>
       <%= yield %>
     </div>
   </div>
