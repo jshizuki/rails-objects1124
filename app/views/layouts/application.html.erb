@@ -10,19 +10,13 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
   <body>
-    <%# Avoid showing navbar on show page %>
-    <% # unless params[:action] == 'show' && params[:controller] == 'objects_invoices' %>
     <div class="content">
-      <%# The two lines below are for Devise %>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <%# The two lines above are for Devise %>
       <div class="background-layer"></div>
       <%= render 'shared/navbar' %>
-      <% # end %>
       <%= render 'shared/logo' %>
-      <%= render "shared/flashes" %>
+      <%#= render "shared/flashes" %>
       <%= yield %>
     </div>
-  </div>
-</body>
+  </body>
 </html>
