@@ -1,8 +1,6 @@
 class ObjectsInvoicesController < ApplicationController
   before_action :find_invoice, only: %i[show edit update destroy]
 
-  def home; end
-
   def index
     @invoices = ObjectsInvoice.all
   end

@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row row-cols-sm-3 gy-5">
+    <% @products.sort.each do |product| %>
+      <div class="col d-flex justify-content-center">
+        <div class="card" style="width: 20rem;">
+          <div class="ratio ratio-1x1">
+            <%= cl_image_tag "mdhhilvsbza01jnqrmku", alt: "Product", class: "object-fit-cover opacity-50" %>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fs-2"><%= product.name %></h5>
+            <p class="card-text"><%= "$#{product.unit_price}" %></p>
+            <p class="card-text"><%= product.sold? ? "sold" : "available" %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
