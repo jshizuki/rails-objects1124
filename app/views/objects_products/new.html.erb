@@ -2,6 +2,7 @@
   <%= simple_form_for @product do |form| %>
     <%= form.input :name %>
     <%= form.input :unit_price %>
-    <%= form.submit %>
+    <%= form.input :quantity %>
+    <%= form.submit 'Add product(s)' %>
   <% end %>
 </div>

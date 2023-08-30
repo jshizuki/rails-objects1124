@@ -8,13 +8,13 @@ class ObjectsProductsController < ApplicationController
   end
 
   def create
-    @product = ObjectsProduct.new(product_params)
-    @product.sku = calculate_sku
-    if @product.save
-      redirect_to objects_products_path
-    else
-      render :new, status: :unprocessable_entity
+    product_params[:quantity].to_i.times do
+      @product = ObjectsProduct.new(product_params)
+      @product.sku = calculate_sku
+      @product.quantity = 1
+      @product.save
     end
+    redirect_to objects_products_path
   end
 
   private
@@ -22,7 +22,8 @@ class ObjectsProductsController < ApplicationController
   def product_params
     params.require(:objects_product).permit(
       :name,
-      :unit_price
+      :unit_price,
+      :quantity
     )
   end
 
