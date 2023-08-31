@@ -4,7 +4,11 @@
       <div class="col d-flex justify-content-center">
         <div class="card" style="width: 18rem;">
           <div class="ratio ratio-1x1">
-            <%= cl_image_tag "mdhhilvsbza01jnqrmku", alt: "Product", class: "object-fit-cover opacity-50" %>
+            <% if product.photo.key.nil? %>
+              <%= cl_image_tag "mdhhilvsbza01jnqrmku", alt: "Product", class: "object-fit-cover opacity-50" %>
+            <% else %>
+              <%= cl_image_tag product.photo.key, alt: "Product", class: "object-fit-cover opacity-50" %>
+            <% end %>
           </div>
           <div class="card-header">
             <%= product.sku %>

@@ -23,7 +23,8 @@ class ObjectsProductsController < ApplicationController
     params.require(:objects_product).permit(
       :name,
       :unit_price,
-      :quantity
+      :quantity,
+      :photo
     )
   end
 
