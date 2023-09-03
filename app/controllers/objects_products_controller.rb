@@ -8,11 +8,19 @@ class ObjectsProductsController < ApplicationController
   end
 
   def create
-    product_params[:quantity].to_i.times do
-      @product = ObjectsProduct.new(product_params)
+    first_instance = nil
+    product_params[:quantity].to_i.times do |index|
+      @product = ObjectsProduct.new(product_params.except(:photo))
+
+      if index.zero?
+        @product.photo.attach(product_params[:photo])
+        first_instance = @product
+      else
+        @product.photo.attach(first_instance.photo.blob)
+      end
       @product.sku = calculate_sku
       @product.quantity = 1
-      @product.save
+      render :new, status: :unprocessable_entity unless @product.save
     end
     redirect_to objects_products_path
   end
