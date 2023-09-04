@@ -24,9 +24,9 @@
           </ul>
         </li>
       </ul>
-      <% if user_signed_in? %>
+      <% if objects_user_signed_in? %>
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete, turbo_confirm: "Log out?"}, class: "fs-3 nav-link" %></li>
+          <li class="nav-item"><%= link_to "Log out", destroy_objects_user_session_path, data: {turbo_method: :delete, turbo_confirm: "Log out?"}, class: "fs-3 nav-link" %></li>
         </ul>
       <% end %>
     </div>
