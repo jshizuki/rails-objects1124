@@ -1,0 +1,9 @@
+<%= simple_form_for @product do |form| %>
+  <%= form.input :name, input_html: { class: 'fs-4' } %>
+  <%= form.input :unit_price, label: 'Unit price ($)', input_html: { class: 'fs-4' } %>
+  <% if @product.new_record? %>
+    <%= form.input :quantity, input_html: { class: 'fs-4' } %>
+  <% end %>
+  <%= form.input :photo, as: :file, input_html: { class: 'fs-4' } %>
+  <%= form.submit @product.new_record? ? 'Add product(s)' : 'Edit product(s)', class: "my-3" %>
+<% end %>

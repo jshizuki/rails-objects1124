@@ -30,8 +30,11 @@ class ObjectsProductsController < ApplicationController
   def edit; end
 
   def update
-    @product.update(product_params)
-    redirect_to objects_products_path
+    if @product.update(product_params)
+      redirect_to objects_products_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
