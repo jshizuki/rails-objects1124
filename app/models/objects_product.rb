@@ -4,8 +4,8 @@ class ObjectsProduct < ApplicationRecord
   has_one_attached :photo
   # , foreign_key: 'objects_invoice_id'
 
-  # For displaying both sku and name in the form
-  def sku_and_name
-    "#{sku} - #{name}"
+  # For displaying sku, name and price in the form
+  def sku_name_and_price
+    "#{sku} - #{name} - $#{unit_price}"
   end
 end
