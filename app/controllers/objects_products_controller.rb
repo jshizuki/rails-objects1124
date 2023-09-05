@@ -1,4 +1,6 @@
 class ObjectsProductsController < ApplicationController
+  before_action :find_product, only: %i[edit update]
+
   def index
     @products = ObjectsProduct.all
   end
@@ -25,7 +27,18 @@ class ObjectsProductsController < ApplicationController
     redirect_to objects_products_path
   end
 
+  def edit; end
+
+  def update
+    @product.update(product_params)
+    redirect_to objects_products_path
+  end
+
   private
+
+  def find_product
+    @product = ObjectsProduct.find(params[:id])
+  end
 
   def product_params
     params.require(:objects_product).permit(
