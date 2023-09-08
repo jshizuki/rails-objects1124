@@ -1,11 +1,23 @@
 <div class="container">
+  <div class="dropdown text-center">
+    <a class="dropdown-toggle text-decoration-none link-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Sort products
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to "Sku from the oldest", objects_products_path(sort: "oldest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
+      <li><%= link_to "Sku from the newest", objects_products_path(sort: "newest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
+      <li><%= link_to "Price from the lowest", objects_products_path(sort: "price_lowest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
+      <li><%= link_to "Price from the highest", objects_products_path(sort: "price_highest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
+    </ul>
+  </div>
+  <br>
   <div class="row row-cols-sm-4 gy-5">
-    <% @products.order(id: :desc).each do |product| %>
+    <% @products.each do |product| %>
       <div class="col d-flex justify-content-center">
         <div class="card" style="width: 18rem;">
           <div class="ratio ratio-1x1">
             <% if !product.photo.attached? %>
-              <%= cl_image_tag "background_iuukz2", alt: "Product", class: "object-fit-cover opacity-50" %>
+              <%= cl_image_tag "mdhhilvsbza01jnqrmku", alt: "Product", class: "object-fit-cover opacity-50" %>
             <% else %>
               <%= cl_image_tag product.photo.key, alt: "Product", class: "object-fit-cover opacity-50" %>
             <% end %>

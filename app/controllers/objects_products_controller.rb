@@ -2,7 +2,18 @@ class ObjectsProductsController < ApplicationController
   before_action :find_product, only: %i[edit update]
 
   def index
-    @products = ObjectsProduct.all
+    @products = case params[:sort]
+                when 'oldest'
+                  ObjectsProduct.order(:id)
+                when 'newest'
+                  ObjectsProduct.order(id: :desc)
+                when 'price_lowest'
+                  ObjectsProduct.order(:unit_price)
+                when 'price_highest'
+                  ObjectsProduct.order(unit_price: :desc)
+                else
+                  ObjectsProduct.all
+                end
   end
 
   def new
