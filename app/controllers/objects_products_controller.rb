@@ -12,7 +12,7 @@ class ObjectsProductsController < ApplicationController
                 when 'price_highest'
                   ObjectsProduct.order(unit_price: :desc)
                 else
-                  ObjectsProduct.all
+                  ObjectsProduct.all.sort
                 end
   end
 
