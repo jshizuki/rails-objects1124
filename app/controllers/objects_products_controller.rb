@@ -2,18 +2,16 @@ class ObjectsProductsController < ApplicationController
   before_action :find_product, only: %i[edit update]
 
   def index
-    @products = case params[:sort]
-                when 'oldest'
-                  ObjectsProduct.order(:id)
-                when 'newest'
-                  ObjectsProduct.order(id: :desc)
-                when 'price_lowest'
-                  ObjectsProduct.order(:unit_price)
-                when 'price_highest'
-                  ObjectsProduct.order(unit_price: :desc)
-                else
-                  ObjectsProduct.all.sort
-                end
+    sort_options = {
+      'oldest' => :id,
+      'newest' => { id: :desc },
+      'price_lowest' => :unit_price,
+      'price_highest' => { unit_price: :desc }
+    }
+
+    sort_option = sort_options[params[:sort]] || :id
+
+    @products = ObjectsProduct.order(sort_option)
   end
 
   def new
