@@ -9,8 +9,11 @@ class ObjectsProductsController < ApplicationController
       'price_highest' => { unit_price: :desc }
     }
 
-    sort_option = sort_options[params[:sort]] || :id
+    default_sort_option = :id
+    sort_option = sort_options[params[:sort]] || default_sort_option
 
+    # Store the current sorting option in a *session variable*
+    session[:current_sort_option] = params[:sort]
     @products = ObjectsProduct.order(sort_option)
   end
 
@@ -40,7 +43,8 @@ class ObjectsProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
-      redirect_to objects_products_path
+      # Redirect back to the index page with the sorting option from the session
+      redirect_to objects_products_path(sort: session[:current_sort_option])
     else
       render :new, status: :unprocessable_entity
     end
