@@ -9,6 +9,7 @@ class ObjectsProductsController < ApplicationController
     #   'price_highest' => { unit_price: :desc }
     # }
 
+    # Further sorting can be done through arrays
     sort_options = {
       'oldest' => [:id],
       'newest' => [{ id: :desc }],
@@ -19,7 +20,7 @@ class ObjectsProductsController < ApplicationController
     default_sort_option = [:id]
     sort_option = sort_options[params[:sort]] || default_sort_option
 
-    # Store the current sorting option in a *session variable*
+    # Store the current sorting option in a SESSION VARIABLE
     session[:current_sort_option] = params[:sort]
     @products = ObjectsProduct.order(sort_option)
   end
@@ -49,7 +50,13 @@ class ObjectsProductsController < ApplicationController
   def edit; end
 
   def update
-    if @product.update(product_params)
+    # Use SQL query to find other relevant instances based on their name.
+    # Note that "update_all" only works on active record relations, NOT arrays
+    relevant_products = ObjectsProduct.where(name: @product.name)
+    unsold_relevant_products = relevant_products.where(sold: false)
+    sold_relevant_products = relevant_products.where(sold: true)
+
+    if unsold_relevant_products.update_all(product_params.to_h) && sold_relevant_products.update_all(product_params.to_h.except(:unit_price))
       # Redirect back to the index page with the sorting option from the session
       redirect_to objects_products_path(sort: session[:current_sort_option])
     else
