@@ -2,14 +2,21 @@ class ObjectsProductsController < ApplicationController
   before_action :find_product, only: %i[edit update]
 
   def index
+    # sort_options = {
+    #   'oldest' => :id,
+    #   'newest' => { id: :desc },
+    #   'price_lowest' => :unit_price,
+    #   'price_highest' => { unit_price: :desc }
+    # }
+
     sort_options = {
-      'oldest' => :id,
-      'newest' => { id: :desc },
-      'price_lowest' => :unit_price,
-      'price_highest' => { unit_price: :desc }
+      'oldest' => [:id],
+      'newest' => [{ id: :desc }],
+      'price_lowest' => [:unit_price, :id],
+      'price_highest' => [{ unit_price: :desc }, :id]
     }
 
-    default_sort_option = :id
+    default_sort_option = [:id]
     sort_option = sort_options[params[:sort]] || default_sort_option
 
     # Store the current sorting option in a *session variable*
