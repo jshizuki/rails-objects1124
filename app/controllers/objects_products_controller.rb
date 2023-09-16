@@ -56,8 +56,12 @@ class ObjectsProductsController < ApplicationController
     unsold_relevant_products = relevant_products.where(sold: false)
     sold_relevant_products = relevant_products.where(sold: true)
 
-    if unsold_relevant_products.update_all(product_params.to_h) && sold_relevant_products.update_all(product_params.to_h.except(:unit_price))
+    new_photo = product_params[:photo]
+    product_params_hash = product_params.except(:photo).to_h
+
+    if unsold_relevant_products.update_all(product_params_hash) && sold_relevant_products.update_all(product_params_hash.except(:unit_price))
       # Redirect back to the index page with the sorting option from the session
+      relevant_products.each { |product| product.photo.attach(new_photo) }
       redirect_to objects_products_path(sort: session[:current_sort_option])
     else
       render :new, status: :unprocessable_entity
