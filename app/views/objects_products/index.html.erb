@@ -24,10 +24,10 @@
           </div>
           <div class="card-header d-flex justify-content-between align-items-center">
             <%= product.sku %>
-            <% # unless product.sold? %>
-            <%= link_to edit_objects_product_path(product), class: "fs-4 link-secondary" do %>
-              <i class="fa-solid fa-pen"></i>
-              <% # end %>
+            <% unless product.sold? %>
+              <%= link_to edit_objects_product_path(product), class: "fs-4 link-secondary" do %>
+                <i class="fa-solid fa-pen"></i>
+              <% end %>
             <% end %>
           </div>
           <div class="card-body">
