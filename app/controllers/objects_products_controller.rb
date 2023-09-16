@@ -35,11 +35,12 @@ class ObjectsProductsController < ApplicationController
       @product = ObjectsProduct.new(product_params.except(:photo))
 
       if index.zero?
-        @product.photo.attach(product_params[:photo])
+        attach_photo_to_product
         first_instance = @product
       else
         @product.photo.attach(first_instance.photo.blob)
       end
+
       @product.sku = calculate_sku
       @product.quantity = 1
       render :new, status: :unprocessable_entity unless @product.save
@@ -56,12 +57,13 @@ class ObjectsProductsController < ApplicationController
     unsold_relevant_products = relevant_products.where(sold: false)
     sold_relevant_products = relevant_products.where(sold: true)
 
-    new_photo = product_params[:photo]
+    attach_photo_to_product
+    relevant_products.each { |product| product.photo.attach(@product.photo.blob) }
+
     product_params_hash = product_params.except(:photo).to_h
 
     if unsold_relevant_products.update_all(product_params_hash) && sold_relevant_products.update_all(product_params_hash.except(:unit_price))
       # Redirect back to the index page with the sorting option from the session
-      relevant_products.each { |product| product.photo.attach(new_photo) }
       redirect_to objects_products_path(sort: session[:current_sort_option])
     else
       render :new, status: :unprocessable_entity
@@ -88,5 +90,9 @@ class ObjectsProductsController < ApplicationController
     numeric_part = previous_sku[3..].to_i
     incremented_numeric_part = (numeric_part + 1).to_s.rjust(previous_sku.length - 3, '0')
     "OBJ#{incremented_numeric_part}"
+  end
+
+  def attach_photo_to_product
+    @product.photo.attach(product_params[:photo])
   end
 end
