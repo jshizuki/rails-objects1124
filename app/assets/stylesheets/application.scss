@@ -36,11 +36,6 @@ body {
   font-size: 18px;
 }
 
-.content {
-  height: 100vh;
-  position: relative;
-}
-
 .background-layer {
   position: fixed;
   /* top: 0;
@@ -53,6 +48,11 @@ body {
   background-position-y: 60%;
   filter: grayscale(100%);
   z-index: -1;
+}
+
+.content {
+  height: 100vh;
+  position: relative;
 }
 
 // 8, 10.8, 12, 14, 22.6

@@ -7,6 +7,7 @@ class ObjectsInvoicesController < ApplicationController
 
   def new
     @invoice = ObjectsInvoice.new
+    @bookmarked_products = current_objects_user.all_favorites
   end
 
   def create

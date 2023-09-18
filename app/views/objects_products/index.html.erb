@@ -14,16 +14,23 @@
   <div class="row row-cols-sm-4 gy-5">
     <% @products.each do |product| %>
       <div class="col d-flex justify-content-center">
-        <div class="card rounded-4" style="width: 18rem;">
+        <div class="card rounded-4" style="width: 18rem">
           <div class="ratio ratio-1x1">
             <% if !product.photo.attached? %>
-              <%= cl_image_tag "background_iuukz2", alt: "Product", class: "object-fit-cover opacity-50 rounded-top-4" %>
+              <%= cl_image_tag "v1694926417/development/The_Funky_2_pkyvzk", alt: "Product", class: "object-fit-cover opacity-100 rounded-top-4" %>
+              <% # "background_iuukz2" %>
             <% else %>
               <%= cl_image_tag product.photo.key, alt: "Product", class: "object-fit-cover opacity-50 rounded-top-4" %>
             <% end %>
           </div>
           <div class="card-header d-flex justify-content-between align-items-center">
-            <%= product.sku %>
+            <% if product.sold? %>
+              <%= product.sku %>
+            <% else %>
+              <%= link_to toggle_bookmark_objects_product_path(product), class: "text-decoration-none text-dark", data: { turbo_method: :post } do %>
+                <%= product.sku %>
+              <% end %>
+            <% end %>
             <% unless product.sold? %>
               <%= link_to edit_objects_product_path(product), class: "fs-4 link-secondary" do %>
                 <i class="fa-solid fa-pen"></i>

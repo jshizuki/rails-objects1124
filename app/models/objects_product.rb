@@ -3,6 +3,7 @@ class ObjectsProduct < ApplicationRecord
   belongs_to :objects_invoice, optional: true
   has_one_attached :photo
   # , foreign_key: 'objects_invoice_id'
+  acts_as_favoritable
 
   # For displaying sku, name and price in the form
   def sku_name_and_price

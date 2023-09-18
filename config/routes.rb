@@ -6,5 +6,9 @@ Rails.application.routes.draw do
   # root "articles#index"
   root to: 'objects_invoices#index'
   resources :objects_invoices
-  resources :objects_products
+  resources :objects_products do
+    member do
+      post 'toggle_bookmark'
+    end
+  end
 end

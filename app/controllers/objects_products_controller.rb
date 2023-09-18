@@ -1,5 +1,5 @@
 class ObjectsProductsController < ApplicationController
-  before_action :find_product, only: %i[edit update]
+  before_action :find_product, only: %i[edit update toggle_bookmark]
 
   def index
     # sort_options = {
@@ -57,7 +57,7 @@ class ObjectsProductsController < ApplicationController
     unsold_relevant_products = relevant_products.where(sold: false)
     sold_relevant_products = relevant_products.where(sold: true)
 
-    attach_photo_to_product
+    attach_photo_to_one_product
     relevant_products.each { |product| product.photo.attach(@product.photo.blob) }
 
     product_params_hash = product_params.except(:photo).to_h
@@ -67,6 +67,14 @@ class ObjectsProductsController < ApplicationController
       redirect_to objects_products_path(sort: session[:current_sort_option])
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def toggle_bookmark
+    if current_objects_user.favorited?(@product)
+      current_objects_user.unfavorite(@product)
+    else
+      current_objects_user.favorite(@product)
     end
   end
 
@@ -92,7 +100,8 @@ class ObjectsProductsController < ApplicationController
     "OBJ#{incremented_numeric_part}"
   end
 
-  def attach_photo_to_product
+  def attach_photo_to_one_product
     @product.photo.attach(product_params[:photo])
   end
+
 end
