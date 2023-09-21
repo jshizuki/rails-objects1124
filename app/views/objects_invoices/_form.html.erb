@@ -2,7 +2,13 @@
   <%= simple_form_for @invoice do |form| %>
     <%= form.input :order_date, input_html: { class: 'fs-4' } %>
     <%= form.input :billed_to, input_html: { class: 'fs-4' } %>
-    <%= render 'cards' %>
+    <p>Products</p>
+    <% if @bookmarked_products.empty? %>
+      <p><i><%= "No products inserted yet.  Please bookmark items on stocklist page." %></i></p>
+    <% else %>
+      <%= render 'cards' %>
+    <% end %>
+    <br>
     <%= form.input :shipping_fee, label: 'Shipping fee ($)', input_html: { class: 'fs-4' } %>
     <%= form.label :discount_type, 'Discount', input_html: { class: 'fs-4' } %>
     <%# Below, array 0 is label and array 1 is value %>

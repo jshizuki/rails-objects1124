@@ -14,6 +14,8 @@ class ObjectsInvoicesController < ApplicationController
     bookmarked_products
     build_invoice
     if @invoice.save
+      # Remove all bookmarks for the next new invoice
+      bookmarked_products.each { |favorite| current_objects_user.unfavorite(favorite) }
       redirect_to objects_invoice_path(@invoice)
     else
       render :new, status: :unprocessable_entity
@@ -60,6 +62,7 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def bookmarked_products
+    # Return favorite instances
     @bookmarked_products = current_objects_user.all_favorited
   end
 
@@ -73,8 +76,8 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def associate_with_products(invoice)
-    invoice.objects_products = @bookmarked_products
-    # ObjectsProduct.where(id: params[:objects_invoice][:objects_product_ids])
+    invoice.objects_products = bookmarked_products
+    # Before favorite gem setup -- ObjectsProduct.where(id: params[:objects_invoice][:objects_product_ids])
     invoice.objects_products.update_all(sold: true)
     invoice
   end
