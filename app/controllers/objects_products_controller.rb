@@ -14,7 +14,7 @@ class ObjectsProductsController < ApplicationController
       'oldest' => [:id],
       'newest' => [{ id: :desc }],
       'price_lowest' => [:unit_price, :id],
-      'price_highest' => [{ unit_price: :desc }, :id]
+      'price_highest' => [{ unit_price: :desc }, :id],
     }
 
     default_sort_option = [:id]

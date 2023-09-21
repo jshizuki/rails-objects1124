@@ -7,10 +7,11 @@ class ObjectsInvoicesController < ApplicationController
 
   def new
     @invoice = ObjectsInvoice.new
-    @bookmarked_products = current_objects_user.all_favorites
+    bookmarked_products
   end
 
   def create
+    bookmarked_products
     build_invoice
     if @invoice.save
       redirect_to objects_invoice_path(@invoice)
@@ -58,6 +59,10 @@ class ObjectsInvoicesController < ApplicationController
     )
   end
 
+  def bookmarked_products
+    @bookmarked_products = current_objects_user.all_favorited
+  end
+
   # CREATE
 
   def build_invoice
@@ -68,7 +73,8 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def associate_with_products(invoice)
-    invoice.objects_products = ObjectsProduct.where(id: params[:objects_invoice][:objects_product_ids])
+    invoice.objects_products = @bookmarked_products
+    # ObjectsProduct.where(id: params[:objects_invoice][:objects_product_ids])
     invoice.objects_products.update_all(sold: true)
     invoice
   end
