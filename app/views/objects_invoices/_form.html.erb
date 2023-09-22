@@ -3,8 +3,8 @@
     <%= form.input :order_date, input_html: { class: 'fs-4' } %>
     <%= form.input :billed_to, input_html: { class: 'fs-4' } %>
     <p>Products</p>
-    <% if @bookmarked_products.empty? %>
-      <p><i><%= "No products inserted yet.  Please bookmark items on stocklist page." %></i></p>
+    <% if @products_to_display.empty? %>
+      <p><i><%= "No products yet" %></i></p>
     <% else %>
       <%= render 'cards' %>
     <% end %>

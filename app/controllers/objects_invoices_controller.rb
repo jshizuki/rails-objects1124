@@ -7,15 +7,15 @@ class ObjectsInvoicesController < ApplicationController
 
   def new
     @invoice = ObjectsInvoice.new
-    bookmarked_products
+    @products_to_display = bookmarked_products
   end
 
   def create
-    bookmarked_products
+    # bookmarked_products
     build_invoice
     if @invoice.save
       # Remove all bookmarks for the next new invoice
-      bookmarked_products.each { |favorite| current_objects_user.unfavorite(favorite) }
+      bookmarked_products.each { |product| current_objects_user.unfavorite(product) }
       redirect_to objects_invoice_path(@invoice)
     else
       render :new, status: :unprocessable_entity
@@ -28,7 +28,9 @@ class ObjectsInvoicesController < ApplicationController
     @total = calculate_total
   end
 
-  def edit; end
+  def edit
+    @products_to_display = @invoice.objects_products
+  end
 
   def update
     reset_sold_products
@@ -62,7 +64,7 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def bookmarked_products
-    # Return favorite instances
+    # Returns ObjectsProducts records
     @bookmarked_products = current_objects_user.all_favorited
   end
 

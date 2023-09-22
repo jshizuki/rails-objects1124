@@ -14,7 +14,7 @@ class ObjectsProductsController < ApplicationController
       'oldest' => [:id],
       'newest' => [{ id: :desc }],
       'price_lowest' => [:unit_price, :id],
-      'price_highest' => [{ unit_price: :desc }, :id],
+      'price_highest' => [{ unit_price: :desc }, :id]
     }
 
     default_sort_option = [:id]
@@ -103,5 +103,4 @@ class ObjectsProductsController < ApplicationController
   def attach_photo_to_one_product
     @product.photo.attach(product_params[:photo])
   end
-
 end
