@@ -7,11 +7,10 @@ class ObjectsInvoicesController < ApplicationController
 
   def new
     @invoice = ObjectsInvoice.new
-    @products_to_display = bookmarked_products
+    products_to_display
   end
 
   def create
-    # bookmarked_products
     build_invoice
     if @invoice.save
       # Remove all bookmarks for the next new invoice
@@ -29,7 +28,7 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def edit
-    @products_to_display = @invoice.objects_products
+    products_to_display
   end
 
   def update
@@ -66,6 +65,14 @@ class ObjectsInvoicesController < ApplicationController
   def bookmarked_products
     # Returns ObjectsProducts records
     @bookmarked_products = current_objects_user.all_favorited
+  end
+
+  def products_to_display
+    @products_to_display = if params[:action] == 'new'
+                             bookmarked_products
+                           elsif params[:action] == 'edit'
+                             @invoice.objects_products
+                           end
   end
 
   # CREATE
