@@ -35,7 +35,7 @@ class ObjectsProductsController < ApplicationController
       @product = ObjectsProduct.new(product_params.except(:photo))
 
       if index.zero?
-        attach_photo_to_product
+        attach_photo_to_one_product
         first_instance = @product
       else
         @product.photo.attach(first_instance.photo.blob)
@@ -45,7 +45,7 @@ class ObjectsProductsController < ApplicationController
       @product.quantity = 1
       render :new, status: :unprocessable_entity unless @product.save
     end
-    redirect_to objects_products_path
+    redirect_to objects_products_path(sort: session[:current_sort_option])
   end
 
   def edit; end
