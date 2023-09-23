@@ -45,6 +45,7 @@ class ObjectsProductsController < ApplicationController
       @product.quantity = 1
       render :new, status: :unprocessable_entity unless @product.save
     end
+
     redirect_to objects_products_path(sort: session[:current_sort_option])
   end
 
@@ -71,11 +72,8 @@ class ObjectsProductsController < ApplicationController
   end
 
   def toggle_bookmark
-    if current_objects_user.favorited?(@product)
-      current_objects_user.unfavorite(@product)
-    else
-      current_objects_user.favorite(@product)
-    end
+    user = current_objects_user
+    user.favorited?(@product) ? user.unfavorite(@product) : user.favorite(@product)
   end
 
   private
