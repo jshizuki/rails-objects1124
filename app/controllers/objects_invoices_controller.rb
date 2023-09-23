@@ -1,5 +1,5 @@
 class ObjectsInvoicesController < ApplicationController
-  before_action :find_invoice, only: %i[show edit update destroy]
+  before_action :find_invoice, only: %i[show edit update destroy remove_product_from_invoice]
 
   def index
     @invoices = ObjectsInvoice.all
@@ -32,7 +32,7 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def update
-    reset_sold_products
+    # reset_sold_products
     update_sold_products
     update_invoice
 
@@ -46,7 +46,20 @@ class ObjectsInvoicesController < ApplicationController
     redirect_to objects_invoices_path, status: :see_other
   end
 
+  def remove_product_from_invoice
+    @product = ObjectsProduct.find(params[:objects_product_id])
+
+    if @product.objects_invoice_id.present?
+      @product.update(objects_invoice_id: nil, sold: false)
+    else
+      current_objects_user.unfavorite(@product)
+    end
+    redirect_to edit_objects_invoice_path(@invoice), status: :see_other
+  end
+
   private
+
+  # Shared methods
 
   def find_invoice
     @invoice = ObjectsInvoice.find(params[:id])
@@ -68,10 +81,11 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def products_to_display
-    @products_to_display = if params[:action] == 'new'
+    @products_to_display = case params[:action]
+                           when 'new'
                              bookmarked_products
-                           elsif params[:action] == 'edit'
-                             @invoice.objects_products
+                           when 'edit', 'update'
+                             bookmarked_products + @invoice.objects_products
                            end
   end
 
@@ -119,8 +133,13 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def update_sold_products
-    new_sold_products = ObjectsProduct.where(id: params[:objects_invoice][:objects_product_ids])
-    new_sold_products.update_all(objects_invoice_id: @invoice.id, sold: true)
+    # new_sold_products = ObjectsProduct.where(id: params[:objects_invoice][:objects_product_ids])
+    # new_sold_products.update_all(objects_invoice_id: @invoice.id, sold: true)
+
+    # Convert array into Active Record associations before update_all
+    sku_values = products_to_display.map(&:sku)
+    products_to_be_updated = ObjectsProduct.where(sku: sku_values)
+    products_to_be_updated.update_all(objects_invoice_id: @invoice.id, sold: true)
   end
 
   def update_invoice
