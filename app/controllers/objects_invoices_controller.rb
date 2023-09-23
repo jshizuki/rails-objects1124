@@ -32,7 +32,6 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def update
-    # reset_sold_products
     update_sold_products
     update_invoice
     remove_bookmarks
@@ -85,12 +84,16 @@ class ObjectsInvoicesController < ApplicationController
                            when 'new'
                              bookmarked_products
                            when 'edit', 'update'
-                             bookmarked_products + @invoice.objects_products
+                             bookmarked_products + products_in_invoice
                            end
   end
 
   def remove_bookmarks
     bookmarked_products.each { |product| current_objects_user.unfavorite(product) }
+  end
+
+  def products_in_invoice
+    @invoice.objects_products
   end
 
   # CREATE
@@ -112,7 +115,7 @@ class ObjectsInvoicesController < ApplicationController
   # SHOW
 
   def calculate_sub_total
-    @invoice.objects_products.sum(&:unit_price)
+    products_in_invoice.sum(&:unit_price)
   end
 
   def calculate_discount
@@ -133,7 +136,7 @@ class ObjectsInvoicesController < ApplicationController
   # UPDATE
 
   def reset_sold_products
-    @invoice.objects_products.update_all(objects_invoice_id: nil, sold: false)
+    products_in_invoice.update_all(objects_invoice_id: nil, sold: false)
   end
 
   def update_sold_products
