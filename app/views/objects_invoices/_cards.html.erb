@@ -12,8 +12,10 @@
         </div>
         <div class="card-header d-flex justify-content-between align-items-center">
           <%= product.sku %>
-          <%= link_to remove_products_objects_invoice_path(@invoice, product), data: { turbo_method: :post }, class: 'text-decoration-none link-secondary' do %>
-            <i class="fa-solid fa-xmark"></i>
+          <% unless params[:action] == 'new' %>
+            <%= link_to remove_products_objects_invoice_path(@invoice, product), data: { turbo_method: :post }, class: 'text-decoration-none link-secondary' do %>
+              <i class="fa-solid fa-xmark"></i>
+            <% end %>
           <% end %>
         </div>
         <div class="card-body">

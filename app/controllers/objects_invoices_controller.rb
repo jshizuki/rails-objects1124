@@ -14,7 +14,7 @@ class ObjectsInvoicesController < ApplicationController
     build_invoice
     if @invoice.save
       # Remove all bookmarks for the next new invoice
-      bookmarked_products.each { |product| current_objects_user.unfavorite(product) }
+      remove_bookmarks
       redirect_to objects_invoice_path(@invoice)
     else
       render :new, status: :unprocessable_entity
@@ -35,7 +35,7 @@ class ObjectsInvoicesController < ApplicationController
     # reset_sold_products
     update_sold_products
     update_invoice
-
+    remove_bookmarks
     redirect_to objects_invoice_path(@invoice)
   end
 
@@ -87,6 +87,10 @@ class ObjectsInvoicesController < ApplicationController
                            when 'edit', 'update'
                              bookmarked_products + @invoice.objects_products
                            end
+  end
+
+  def remove_bookmarks
+    bookmarked_products.each { |product| current_objects_user.unfavorite(product) }
   end
 
   # CREATE
