@@ -1,5 +1,5 @@
 class ObjectsInvoicesController < ApplicationController
-  before_action :find_invoice, only: %i[show edit update destroy remove_product_from_invoice]
+  before_action :find_invoice, only: %i[show edit update destroy]
 
   def index
     @invoices = ObjectsInvoice.all
@@ -48,12 +48,14 @@ class ObjectsInvoicesController < ApplicationController
   def remove_product_from_invoice
     @product = ObjectsProduct.find(params[:objects_product_id])
 
-    if @product.objects_invoice_id.present?
-      @product.update(objects_invoice_id: nil, sold: false)
+    if params[:id].present?
+      find_invoice
+      # For edit, products in invoice and bookmarked products can be removed
+      handle_existing_invoice
     else
-      current_objects_user.unfavorite(@product)
+      # For new, bookmarked products can be removed
+      handle_new_invoice
     end
-    redirect_to edit_objects_invoice_path(@invoice), status: :see_other
   end
 
   private
@@ -89,16 +91,21 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def remove_bookmarks
-    bookmarked_products.each { |product| current_objects_user.unfavorite(product) }
+    bookmarked_products.each { |product| unfavorite_product(product) }
   end
 
   def products_in_invoice
     @invoice.objects_products
   end
 
+  def unfavorite_product(product)
+    current_objects_user.unfavorite(product)
+  end
+
   # CREATE
 
   def build_invoice
+    # @invoice = ObjectsInvoice.find(params[:id])
     @invoice = ObjectsInvoice.new(invoice_params)
     @invoice.invoice_number = ObjectsInvoice.all.empty? ? 10_001 : ObjectsInvoice.maximum(:invoice_number) + 1
     @invoice.save
@@ -154,7 +161,24 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   # DESTROY
+
   def delete_invoice
     @invoice.delete
+  end
+
+  # REMOVE PRODUCT FROM INVOICE
+
+  def handle_existing_invoice
+    if @product.objects_invoice_id.present?
+      @product.update(objects_invoice_id: nil, sold: false)
+    else
+      unfavorite_product(@product)
+    end
+    redirect_to edit_objects_invoice_path(@invoice), status: :see_other
+  end
+
+  def handle_new_invoice
+    unfavorite_product(@product)
+    redirect_to new_objects_invoice_path, status: :see_other
   end
 end

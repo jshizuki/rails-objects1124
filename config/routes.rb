@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   root to: 'objects_invoices#index'
 
   resources :objects_invoices do
+    collection do
+      post 'remove_products/:objects_product_id', action: :remove_product_from_invoice, as: 'remove_products'
+    end
     member do
       post 'remove_products/:objects_product_id', action: :remove_product_from_invoice, as: 'remove_products'
     end
