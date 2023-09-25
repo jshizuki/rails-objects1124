@@ -1,13 +1,14 @@
 <div class="container">
   <div class="dropdown text-center">
     <a class="dropdown-toggle text-decoration-none link-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Sort products
+      Display
     </a>
     <ul class="dropdown-menu">
-      <li><%= link_to "Sku from the oldest", objects_products_path(sort: "oldest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
-      <li><%= link_to "Sku from the newest", objects_products_path(sort: "newest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
-      <li><%= link_to "Price from the lowest", objects_products_path(sort: "price_lowest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
-      <li><%= link_to "Price from the highest", objects_products_path(sort: "price_highest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
+      <li><%= link_to "Available items", objects_products_path(display: "available"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
+      <li><%= link_to "Sku from the oldest", objects_products_path(display: "oldest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
+      <li><%= link_to "Sku from the newest", objects_products_path(display: "newest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
+      <li><%= link_to "Price from the lowest", objects_products_path(display: "price_lowest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
+      <li><%= link_to "Price from the highest", objects_products_path(display: "price_highest"), class: "dropdown-item text-decoration-none link-secondary fs-3" %></li>
     </ul>
   </div>
   <br>

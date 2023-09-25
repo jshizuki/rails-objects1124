@@ -53,7 +53,7 @@ class ObjectsInvoicesController < ApplicationController
       # For edit, products in invoice and bookmarked products can be removed
       handle_existing_invoice
     else
-      # For new, bookmarked products can be removed
+      # For new, bookmarked products can be removed (there's no products in invoice yet)
       handle_new_invoice
     end
   end

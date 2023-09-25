@@ -9,20 +9,26 @@ class ObjectsProductsController < ApplicationController
     #   'price_highest' => { unit_price: :desc }
     # }
 
-    # Further sorting can be done through arrays
-    sort_options = {
+    # Further displaying can be done through arrays
+    display_options = {
+      'available' => [:id],
       'oldest' => [:id],
       'newest' => [{ id: :desc }],
-      'price_lowest' => [:unit_price, :id],
+      'price_lowest' => %i[unit_price id],
       'price_highest' => [{ unit_price: :desc }, :id]
     }
 
-    default_sort_option = [:id]
-    sort_option = sort_options[params[:sort]] || default_sort_option
+    default_display_option = [:id]
+    display_option = display_options[params[:display]] || default_display_option
 
-    # Store the current sorting option in a SESSION VARIABLE
-    session[:current_sort_option] = params[:sort]
-    @products = ObjectsProduct.order(sort_option)
+    # Store the current displaying option in a SESSION VARIABLE
+    session[:current_display_option] = params[:display]
+
+    @products = if params[:display] == 'available'
+                  ObjectsProduct.where(sold: false).sort
+                else
+                  ObjectsProduct.order(display_option)
+                end
   end
 
   def new
