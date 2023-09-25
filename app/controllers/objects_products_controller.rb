@@ -2,14 +2,6 @@ class ObjectsProductsController < ApplicationController
   before_action :find_product, only: %i[edit update toggle_bookmark]
 
   def index
-    # sort_options = {
-    #   'oldest' => :id,
-    #   'newest' => { id: :desc },
-    #   'price_lowest' => :unit_price,
-    #   'price_highest' => { unit_price: :desc }
-    # }
-
-    # Further displaying can be done through arrays
     display_options = {
       'available' => [:id],
       'oldest' => [:id],

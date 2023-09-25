@@ -13,11 +13,11 @@
         <div class="card-header d-flex justify-content-between align-items-center">
           <%= product.sku %>
           <% if @invoice.new_record? %>
-            <%= link_to remove_products_objects_invoices_path(product), data: { turbo_method: :post }, class: 'text-decoration-none link-secondary' do %>
+            <%= link_to remove_products_objects_invoices_path(product), data: { turbo_method: :post, turbo_confirm: "Remove item from invoice?" }, class: 'text-decoration-none link-secondary' do %>
               <i class="fa-solid fa-xmark"></i>
             <% end %>
           <% else %>
-            <%= link_to remove_products_objects_invoice_path(@invoice, product), data: { turbo_method: :post }, class: 'text-decoration-none link-secondary' do %>
+            <%= link_to remove_products_objects_invoice_path(@invoice, product), data: { turbo_method: :post, turbo_confirm: "Remove item from invoice?"}, class: 'text-decoration-none link-secondary' do %>
               <i class="fa-solid fa-xmark"></i>
             <% end %>
           <% end %>
