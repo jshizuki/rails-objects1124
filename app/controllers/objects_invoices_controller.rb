@@ -102,6 +102,10 @@ class ObjectsInvoicesController < ApplicationController
     current_objects_user.unfavorite(product)
   end
 
+  def update_products(products, options)
+    products.update_all(options)
+  end
+
   # CREATE
 
   def build_invoice
@@ -115,7 +119,8 @@ class ObjectsInvoicesController < ApplicationController
   def associate_with_products(invoice)
     invoice.objects_products = bookmarked_products
     # Before favorite gem setup -- ObjectsProduct.where(id: params[:objects_invoice][:objects_product_ids])
-    invoice.objects_products.update_all(sold: true)
+    # invoice.objects_products.update_all(sold: true)
+    update_products(invoice.objects_products, sold: true)
     invoice
   end
 
@@ -143,7 +148,8 @@ class ObjectsInvoicesController < ApplicationController
   # UPDATE
 
   def reset_sold_products
-    products_in_invoice.update_all(objects_invoice_id: nil, sold: false)
+    # products_in_invoice.update_all(objects_invoice_id: nil, sold: false)
+    update_products(products_in_invoice, objects_invoice_id: nil, sold: false)
   end
 
   def update_sold_products
@@ -153,7 +159,8 @@ class ObjectsInvoicesController < ApplicationController
     # Convert array into Active Record associations before update_all
     sku_values = products_to_display.map(&:sku)
     products_to_be_updated = ObjectsProduct.where(sku: sku_values)
-    products_to_be_updated.update_all(objects_invoice_id: @invoice.id, sold: true)
+    # products_to_be_updated.update_all(objects_invoice_id: @invoice.id, sold: true)
+    update_products(products_to_be_updated, objects_invoice_id: @invoice.id, sold: true)
   end
 
   def update_invoice
