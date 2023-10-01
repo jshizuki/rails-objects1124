@@ -32,7 +32,7 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def update
-    update_sold_products
+    # update_sold_products
     update_invoice
     remove_bookmarks
     redirect_to objects_invoice_path(@invoice)
@@ -86,7 +86,8 @@ class ObjectsInvoicesController < ApplicationController
                            when 'new'
                              bookmarked_products
                            when 'edit', 'update'
-                             bookmarked_products + products_in_invoice
+                             # bookmarked_products + products_in_invoice
+                             products_in_invoice
                            end
   end
 

@@ -4,8 +4,8 @@
       <div class="card rounded-4" style="width: 15rem">
         <div class="ratio ratio-1x1">
           <% if !product.photo.attached? %>
-            <%= cl_image_tag "v1694926417/development/The_Funky_2_pkyvzk", alt: "Product", class: "object-fit-cover opacity-50 rounded-top-4" %>
-            <% # "background_iuukz2" %>
+            <%= cl_image_tag "background_iuukz2", alt: "Product", class: "object-fit-cover opacity-50 rounded-top-4" %>
+            <% # "v1694926417/development/The_Funky_2_pkyvzk" %>
           <% else %>
             <%= cl_image_tag product.photo.key, alt: "Product", class: "object-fit-cover opacity-50 rounded-top-4" %>
           <% end %>
@@ -14,10 +14,6 @@
           <%= product.sku %>
           <% if @invoice.new_record? %>
             <%= link_to remove_products_objects_invoices_path(product), data: { turbo_method: :post, turbo_confirm: "Remove item from invoice?" }, class: 'text-decoration-none link-secondary' do %>
-              <i class="fa-solid fa-xmark"></i>
-            <% end %>
-          <% else %>
-            <%= link_to remove_products_objects_invoice_path(@invoice, product), data: { turbo_method: :post, turbo_confirm: "Remove item from invoice?"}, class: 'text-decoration-none link-secondary' do %>
               <i class="fa-solid fa-xmark"></i>
             <% end %>
           <% end %>
