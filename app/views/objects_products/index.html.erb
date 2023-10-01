@@ -32,11 +32,11 @@
                 <%= product.sku %>
               <% end %>
             <% end %>
-            <% # unless product.sold? %>
-            <%= link_to edit_objects_product_path(product), class: "fs-4 link-secondary" do %>
-              <i class="fa-solid fa-pen"></i>
+            <% unless product.sold? %>
+              <%= link_to edit_objects_product_path(product), class: "fs-4 link-secondary" do %>
+                <i class="fa-solid fa-pen"></i>
+              <% end %>
             <% end %>
-            <% # end %>
           </div>
           <div class="card-body">
             <h5 class="card-title fs-2"><%= product.name %></h5>
