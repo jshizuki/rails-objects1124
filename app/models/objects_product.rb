@@ -1,6 +1,7 @@
 class ObjectsProduct < ApplicationRecord
   # self.table_name = 'objects_products'
   belongs_to :objects_invoice, optional: true
+  belongs_to :objects_series, optional: true
   has_one_attached :photo
   # , foreign_key: 'objects_invoice_id'
   acts_as_favoritable

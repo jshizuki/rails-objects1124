@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_17_060730) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_02_061043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,7 +80,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_17_060730) do
     t.bigint "objects_invoice_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "objects_series_id"
     t.index ["objects_invoice_id"], name: "index_objects_products_on_objects_invoice_id"
+    t.index ["objects_series_id"], name: "index_objects_products_on_objects_series_id"
+  end
+
+  create_table "objects_series", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "objects_users", force: :cascade do |t|
@@ -135,6 +143,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_17_060730) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "objects_products", "objects_invoices"
+  add_foreign_key "objects_products", "objects_series"
   add_foreign_key "wlist_bookmarks", "wlist_lists"
   add_foreign_key "wlist_bookmarks", "wlist_movies"
 end
