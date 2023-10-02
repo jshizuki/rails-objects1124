@@ -20,4 +20,6 @@ Rails.application.routes.draw do
       post 'toggle_bookmark'
     end
   end
+
+  resources :objects_collections
 end
