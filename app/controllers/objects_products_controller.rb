@@ -85,7 +85,8 @@ class ObjectsProductsController < ApplicationController
       :name,
       :unit_price,
       :quantity,
-      :photo
+      :photo,
+      :objects_collection_id
     )
   end
 
