@@ -1,0 +1,2 @@
+class ObjectsCollection < ApplicationRecord
+end
