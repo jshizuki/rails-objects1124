@@ -1,5 +1,5 @@
 class ObjectsProductsController < ApplicationController
-  before_action :find_product, only: %i[edit update toggle_bookmark]
+  before_action :find_product, only: %i[edit update destroy toggle_bookmark]
 
   def index
     display_options = {
@@ -69,6 +69,11 @@ class ObjectsProductsController < ApplicationController
     end
   end
 
+  def destroy
+    delete_product
+    redirect_to objects_products_path, status: :see_other
+  end
+
   def toggle_bookmark
     user = current_objects_user
     user.favorited?(@product) ? user.unfavorite(@product) : user.favorite(@product)
@@ -86,7 +91,7 @@ class ObjectsProductsController < ApplicationController
       :unit_price,
       :quantity,
       :photo,
-      :objects_collection_id
+      # :objects_collection_id
     )
   end
 
@@ -99,5 +104,9 @@ class ObjectsProductsController < ApplicationController
 
   def attach_photo_to_one_product
     @product.photo.attach(product_params[:photo])
+  end
+
+  def delete_product
+    @product.delete
   end
 end

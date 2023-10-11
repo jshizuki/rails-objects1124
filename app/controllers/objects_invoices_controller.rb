@@ -32,7 +32,7 @@ class ObjectsInvoicesController < ApplicationController
   end
 
   def update
-    # update_sold_products
+    update_sold_products
     update_invoice
     remove_bookmarks
     redirect_to objects_invoice_path(@invoice)
@@ -47,7 +47,6 @@ class ObjectsInvoicesController < ApplicationController
 
   def remove_product_from_invoice
     @product = ObjectsProduct.find(params[:objects_product_id])
-
     if params[:id].present?
       find_invoice
       # For edit, products in invoice and bookmarked products can be removed
@@ -87,7 +86,10 @@ class ObjectsInvoicesController < ApplicationController
                              bookmarked_products
                            when 'edit', 'update'
                              # bookmarked_products + products_in_invoice
-                             products_in_invoice
+                             {
+                               newly_bookmarked_products: bookmarked_products,
+                               existing_products: products_in_invoice
+                             }
                            end
   end
 
@@ -158,7 +160,8 @@ class ObjectsInvoicesController < ApplicationController
     # new_sold_products.update_all(objects_invoice_id: @invoice.id, sold: true)
 
     # Convert array into Active Record associations before update_all
-    sku_values = products_to_display.map(&:sku)
+    sku_values = (products_to_display[:newly_bookmarked_products] + products_to_display[:existing_products]).map(&:sku)
+
     products_to_be_updated = ObjectsProduct.where(sku: sku_values)
     # products_to_be_updated.update_all(objects_invoice_id: @invoice.id, sold: true)
     update_products(products_to_be_updated, objects_invoice_id: @invoice.id, sold: true)

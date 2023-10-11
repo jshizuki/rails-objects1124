@@ -3,15 +3,9 @@
     <%= form.input :order_date, input_html: { class: 'fs-4' } %>
     <%= form.input :billed_to, input_html: { class: 'fs-4' } %>
     <% if @invoice.new_record? %>
-      <p>Products to be added</p>
+      <%= render "new_invoice_cards" %>
     <% else %>
-      <p>Products already in invoice</p>
-      <p><i>*Products cannot be edited once associated with the invoice.  If you wish to update the products, please delete this invoice and create a new one.</i></p>
-    <% end %>
-    <% if @products_to_display.empty? %>
-      <p><i><%= "No products yet" %></i></p>
-    <% else %>
-      <%= render 'cards' %>
+      <%= render "edit_invoice_cards" %>
     <% end %>
     <br>
     <%= form.input :shipping_fee, label: 'Shipping fee ($)', input_html: { class: 'fs-4' } %>
