@@ -1,7 +1,4 @@
 <%= simple_form_for @product do |form| %>
-  <%= form.collection_select :objects_collection_id, ObjectsCollection.all, :id, :name, { prompt: "Select a collection" }, input_html: { class: 'fs-4' } %>
-  <br>
-  <br>
   <%= form.input :name, input_html: { class: 'fs-4' } %>
   <%= form.input :unit_price, label: 'Unit price ($)', input_html: { class: 'fs-4' } %>
   <% if @product.new_record? %>
