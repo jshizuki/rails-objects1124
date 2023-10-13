@@ -3,9 +3,26 @@
     <%= form.input :order_date, input_html: { class: 'fs-4' } %>
     <%= form.input :billed_to, input_html: { class: 'fs-4' } %>
     <% if @invoice.new_record? %>
-      <%= render "new_invoice_cards" %>
+      <p>New invoice selections</p>
+      <div class="row row-cols-sm-4 gy-4">
+        <% @products_to_display.sort.each do |product| %>
+          <%= render partial: 'product_cards', locals: { product: product } %>
+        <% end %>
+      </div>
     <% else %>
-      <%= render "edit_invoice_cards" %>
+      <p><%= "INV#{@invoice.invoice_number}" %> items</p>
+      <div class="row row-cols-sm-4 gy-4">
+        <% @products_to_display[:existing_products].sort.each do |product| %>
+          <%= render partial: 'product_cards', locals: { product: product } %>
+        <% end %>
+      </div>
+      <br>
+      <p><%= "INV#{@invoice.invoice_number}" %> new selections</p>
+      <div class="row row-cols-sm-4 gy-4">
+        <% @products_to_display[:newly_bookmarked_products].sort.each do |product| %>
+          <%= render partial: 'product_cards', locals: { product: product } %>
+        <% end %>
+      </div>
     <% end %>
     <br>
     <%= form.input :shipping_fee, label: 'Shipping fee ($)', input_html: { class: 'fs-4' } %>
