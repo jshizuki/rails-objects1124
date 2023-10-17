@@ -56,6 +56,17 @@ body {
   position: relative;
 }
 
+@media print {
+
+  .navbar {
+    display: none;
+  }
+
+  .background-layer {
+    display: none;
+  }
+}
+
 // 8, 10.8, 12, 14, 22.6
 // fs-1 22.6 (invoice)
 // fs-2 14 (total)

@@ -1,7 +1,8 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+# If your Gemfile doesn’t contain a ruby entry, you get MRI 3.1.4.
+# ruby "3.1.2"
 
 # Manually added gems
 gem "font-awesome-sass", "~> 6.1"

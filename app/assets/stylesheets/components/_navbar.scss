@@ -10,14 +10,3 @@
 // .navbar-lewagon .navbar-brand img {
 //   width: 40px;
 // }
-
-/* Hide the navbar when printing the page */
-@media print {
-  .navbar {
-    display: none;
-  }
-
-  .background-layer {
-    display: none;
-  }
-}
