@@ -56,7 +56,24 @@ body {
   position: relative;
 }
 
+.padding-for-show {
+  // This class sets padding when viewing on browser
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+@page {
+  size: A4;
+  margin-top: 0.5in;
+  margin-bottom: 0.9in;
+}
+
 @media print {
+  // This alters padding when viewing on pdf formal
+  .padding-for-show {
+    padding-left: 0%;
+    padding-right: 0%;
+  }
 
   .navbar {
     display: none;
