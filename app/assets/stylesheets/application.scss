@@ -63,7 +63,7 @@ body {
 }
 
 @page {
-  size: A4;
+  // size: A4;
   margin-top: 0.5in;
   margin-bottom: 0.9in;
 }
@@ -74,6 +74,15 @@ body {
     padding-left: 0%;
     padding-right: 0%;
   }
+
+  hr {
+    display: block;
+    height: 1px;
+    background: transparent;
+    width: 100%;
+    border: none;
+    border-top: solid 3px #aaa;
+}
 
   .navbar {
     display: none;
