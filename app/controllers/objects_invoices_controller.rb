@@ -2,7 +2,9 @@ class ObjectsInvoicesController < ApplicationController
   before_action :find_invoice, only: %i[show edit update destroy]
 
   def index
-    @invoices = ObjectsInvoice.all
+    # @invoices = ObjectsInvoice.all
+    @expected_invoice_numbers = (10001..ObjectsInvoice.maximum(:invoice_number))
+    @existing_invoice_numbers = ObjectsInvoice.pluck(:invoice_number)
   end
 
   def new
@@ -108,6 +110,8 @@ class ObjectsInvoicesController < ApplicationController
   def update_products(products, options)
     products.update_all(options)
   end
+
+  # INDEX
 
   # CREATE
 
