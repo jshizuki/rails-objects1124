@@ -4,23 +4,26 @@
       <div class="fs-2 text-center text-secondary">Your invoice list is empty.</div>
     <% end %>
     <% @expected_invoice_numbers.sort.each do |number| %>
-      <div class="card text-bg-light m-3 positive-relative" style="width: 15rem;">
+      <div class="card text-bg-light m-3 position-relative" style="width: 15rem;">
         <div class="card-body">
           <h5 class="card-title text-center">
             <% if @existing_invoice_numbers.include?(number) %>
-              <%= link_to objects_invoice_path(ObjectsInvoice.find_by_invoice_number(number)), class:"fs-4 text-decoration-none link-secondary" do %>
+              <% invoice = ObjectsInvoice.find_by_invoice_number(number) %>
+              <%= link_to objects_invoice_path(invoice), class:"fs-4 text-decoration-none link-secondary" do %>
                 <%= "INV#{number}" %>
               <% end %>
               <div class="d-flex position-absolute bottom-0 end-0">
-                <%= link_to edit_objects_invoice_path(ObjectsInvoice.find_by_invoice_number(number)), class: "fs-4 link-secondary p-2" do %>
+                <%= link_to edit_objects_invoice_path(invoice), class: "fs-4 link-secondary p-2" do %>
                   <i class="fa-solid fa-pen"></i>
                 <% end %>
-                <%= link_to objects_invoice_path(ObjectsInvoice.find_by_invoice_number(number)), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this invoice?"}, class: "fs-4 link-secondary p-2" do %>
+                <%= link_to objects_invoice_path(invoice), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this invoice?"}, class: "fs-4 link-secondary p-2" do %>
                   <i class="fa-solid fa-minus"></i>
                 <% end %>
               </div>
             <% else %>
-              <p class="fs-4 text-secondary mt-4"><%= "VOID" %></p>
+              <%= link_to objects_invoices_path, class:"fs-4 text-decoration-none link-secondary" do %>
+                <%= "VOIDED" %>
+              <% end %>
             <% end %>
           </h5>
         </div>
